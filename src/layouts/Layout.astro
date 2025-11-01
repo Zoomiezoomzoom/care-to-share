@@ -1,0 +1,30 @@
+---
+interface Props {
+    title?: string;
+    description?: string;
+}
+const { title = 'Care to Share November', description = 'Locate community food sites and donation drop-offs in Mississippi.' } = Astro.props as Props;
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+---
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <slot name="head" />
+    </head>
+    <body class="min-h-screen antialiased">
+        <Header />
+        <main>
+            <slot />
+        </main>
+    </body>
+</html>

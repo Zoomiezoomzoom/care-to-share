@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model PartnerRegistration {
+  id                String   @id @default(uuid()) @db.Uuid
+  createdAt         DateTime @default(now())
+
+  // Business info
+  org               String
+  name              String
+  email             String
+  phone             String
+  address           String
+  city              String
+  zip               String
+
+  // Business type
+  businessType      String
+  businessTypeOther String?
+
+  // Participation
+  offerDropoff      Boolean  @default(false)
+  offerPickup       Boolean  @default(false)
+  offerBoth         Boolean  @default(false)
+  openHours         String
+
+  // Duration
+  duration          String?
+  durationDates     String?
+
+  // Storage
+  storageSpace      String?
+
+  // Additional info
+  additionalInfo    String?
+
+  // Acknowledgements
+  ackParticipation  Boolean  @default(false)
+  ackFollowup       Boolean  @default(false)
+}
+
+

@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import LocationFinder from '../components/LocationFinder.tsx';
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('sites');
+const sites = all.filter((e) => e.data.city.toLowerCase() === 'jackson').map((e) => ({ slug: e.slug, ...e.data }));
+---
+
+<Layout title="Care to Share – Jackson, MS" description="Find community food sites and donation drop-offs across Jackson. Supported by Mayor John Horhn.">
+  <Fragment slot="head">
+    <script type="application/ld+json">
+      {JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: 'Care to Share – Jackson',
+        url: (Astro.site?.origin ?? '') + '/jackson'
+      })}
+    </script>
+  </Fragment>
+  <section class="bg-[--color-secondary]">
+    <div class="container py-10 md:py-14">
+      <div class="inline-flex items-center gap-2 text-sm text-[--color-accent]">
+        <span aria-hidden="true">✶</span>
+        <span class="uppercase tracking-wide">City of Jackson</span>
+      </div>
+      <h1 class="mt-2 text-3xl md:text-5xl">Care to Share: Jackson, MS</h1>
+      <p class="mt-3 text-base md:text-lg text-[rgb(0_0_0/0.65)] max-w-prose">Find community food sites and donation drop-offs across Jackson.</p>
+      <div class="mt-4 rounded-lg bg-white p-4 ring-1 ring-[rgb(0_0_0/0.06)]">
+        <p class="text-sm text-[rgb(0_0_0/0.75)]"><strong>Featured:</strong> Mayor John Horhn supports neighbors helping neighbors this November.</p>
+      </div>
+    </div>
+  </section>
+  <LocationFinder client:only="react" sites={sites} />
+</Layout>
+
+
