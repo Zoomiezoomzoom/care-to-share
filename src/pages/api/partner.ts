@@ -1,17 +1,39 @@
 import type { APIRoute } from "astro";
-import { prisma } from "../../lib/prisma";
+import { supabaseAdmin } from "../../lib/supabase";
+
+// Ensure this endpoint runs at request time (needed for POST in static sites)
+export const prerender = false;
+
+export const GET: APIRoute = async () => {
+  return new Response("Use POST /api/partner to submit the form.", {
+    status: 405,
+    headers: { Allow: "POST" },
+  });
+};
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     const contentType = request.headers.get("content-type") || "";
-    if (!contentType.includes("application/x-www-form-urlencoded")) {
-      return new Response("Unsupported Media Type", { status: 415 });
+
+    // Parse body with graceful fallbacks
+    let get: (key: string) => string;
+    let has: (key: string) => boolean;
+
+    if (contentType.includes("application/x-www-form-urlencoded") || contentType.includes("multipart/form-data")) {
+      const form = await request.formData();
+      get = (key: string) => (form.get(key) ?? "").toString().trim();
+      has = (key: string) => form.has(key);
+    } else if (contentType.includes("application/json")) {
+      const json = await request.json();
+      get = (key: string) => (json?.[key] ?? "").toString().trim();
+      has = (key: string) => Object.prototype.hasOwnProperty.call(json ?? {}, key);
+    } else {
+      // Try to treat body as URL-encoded text (common when Content-Type is missing)
+      const text = await request.text();
+      const params = new URLSearchParams(text);
+      get = (key: string) => (params.get(key) ?? "").toString().trim();
+      has = (key: string) => params.has(key);
     }
-
-    const form = await request.formData();
-
-    const get = (key: string) => (form.get(key) ?? "").toString().trim();
-    const has = (key: string) => form.has(key);
 
     const data = {
       org: get("org"),
@@ -56,7 +78,38 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response("Missing required fields", { status: 400 });
     }
 
-    await prisma.partnerRegistration.create({ data });
+    // Map to Supabase table column names
+    const record = {
+      id: (globalThis as any).crypto?.randomUUID?.() ? crypto.randomUUID() : undefined,
+      submitted_at: new Date().toISOString(),
+      org: data.org,
+      contact_name: data.name,
+      email: data.email,
+      phone: data.phone,
+      address: data.address,
+      city: data.city,
+      zip: data.zip,
+      business_type: data.businessType,
+      business_type_other: data.businessTypeOther,
+      offer_dropoff: data.offerDropoff,
+      offer_pickup: data.offerPickup,
+      offer_both: data.offerBoth,
+      open_hours: data.openHours,
+      duration: data.duration,
+      duration_dates: data.durationDates,
+      storage_space: data.storageSpace,
+      additional_info: data.additionalInfo,
+      user_agent: request.headers.get("user-agent") || null,
+    } as const;
+
+    const { error } = await supabaseAdmin
+      .from("partner_registrations")
+      .insert([record]);
+
+    if (error) {
+      console.error("Supabase insert error", error);
+      return new Response("Server error", { status: 500 });
+    }
 
     return new Response(null, {
       status: 303,
