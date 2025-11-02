@@ -1,37 +1,108 @@
 ---
 import Layout from '../layouts/Layout.astro';
+const contactConfigured = Boolean((import.meta as any).env?.RESEND_API_KEY && (import.meta as any).env?.CONTACT_TO_EMAIL);
 ---
 
 <Layout title="Contact – Care to Share" description="Contact form and partnership inquiries for Care to Share Mississippi.">
-  <section class="bg-[--color-secondary]">
-    <div class="container py-10 md:py-14">
-      <h1 class="text-3xl md:text-4xl">Contact</h1>
-      <p class="mt-3 max-w-prose text-[rgb(0_0_0/0.7)]">Questions or partnership inquiries? Send us a message.</p>
-    </div>
-  </section>
-  <section class="py-10">
-    <div class="container">
-      <form name="contact" method="POST" data-netlify="true" class="max-w-xl rounded-lg bg-white p-6 ring-1 ring-[rgb(0_0_0/0.06)] grid gap-4">
-        <input type="hidden" name="form-name" value="contact" />
-        <label class="text-sm font-medium text-[--color-accent]">Business/Organization name
-          <input required name="org" class="mt-1 w-full rounded-md border border-[rgb(0_0_0/0.1)] bg-white px-3 py-2 text-sm" />
-        </label>
-        <label class="text-sm font-medium text-[--color-accent]">Contact person name
-          <input required name="name" class="mt-1 w-full rounded-md border border-[rgb(0_0_0/0.1)] bg-white px-3 py-2 text-sm" />
-        </label>
-        <label class="text-sm font-medium text-[--color-accent]">Email
-          <input required type="email" name="email" class="mt-1 w-full rounded-md border border-[rgb(0_0_0/0.1)] bg-white px-3 py-2 text-sm" />
-        </label>
-        <label class="text-sm font-medium text-[--color-accent]">Phone
-          <input name="phone" class="mt-1 w-full rounded-md border border-[rgb(0_0_0/0.1)] bg-white px-3 py-2 text-sm" />
-        </label>
-        <label class="text-sm font-medium text-[--color-accent]">Message
-          <textarea required name="message" class="mt-1 w-full rounded-md border border-[rgb(0_0_0/0.1)] bg-white px-3 py-2 text-sm min-h-28"></textarea>
-        </label>
-        <button type="submit" class="rounded-md bg-[--color-primary] text-white px-4 py-2 text-sm font-medium">Send</button>
-      </form>
+  <section class="bg-[#FFF8F0] border-b border-[rgb(0_0_0/0.06)]">
+    <div class="container py-14 md:py-20 flex flex-col md:flex-row items-start gap-12">
+      <div class="w-full md:w-1/2 mb-8 md:mb-0">
+        <h1 class="text-4xl md:text-5xl font-bold text-[#2D5016] mb-4">Contact Us</h1>
+        <p class="text-lg text-gray-700 max-w-prose mb-6">
+          Questions, comments, or want to partner? We'd love to hear from you.
+        </p>
+        <div class="bg-[#F4A259]/10 rounded-lg p-6 mb-6">
+          <h2 class="text-xl font-semibold text-[#C86D4B] mb-2">Quick Answers</h2>
+          <ul class="space-y-2 text-gray-700 text-base list-disc ml-5">
+            <li><span class="font-semibold">Business partnerships</span>: Use this form to join as a collection site.</li>
+            <li><span class="font-semibold">Press inquiries</span>: Email us for media or collaboration requests.</li>
+            <li><span class="font-semibold">Volunteering</span>: Let us know your interest in helping locally.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="w-full md:w-1/2">
+        { !contactConfigured && (
+          <div class="max-w-xl mb-4 rounded-md bg-yellow-50 text-yellow-900 text-sm p-3 ring-1 ring-yellow-200">
+            Email delivery isn’t configured yet. Set <span class="font-bold">RESEND_API_KEY</span> and <span class="font-bold">CONTACT_TO_EMAIL</span> in <span class="font-mono">.env.local</span>.
+          </div>
+        ) }
+        <form id="contact-form" name="contact" method="POST" action="/api/contact" enctype="application/x-www-form-urlencoded" class="max-w-xl rounded-2xl bg-white p-8 md:p-10 shadow-lg ring-1 ring-[rgb(0_0_0/0.08)] grid gap-6 relative">
+          <input type="text" name="website" class="hidden" autocomplete="off" tabindex="-1" aria-hidden="true" />
+          <div class="grid gap-4">
+            <fieldset class="text-sm font-medium text-[#2D5016]">
+              <legend class="mb-2">I'm contacting as</legend>
+              <div class="flex flex-wrap gap-4">
+                <label class="inline-flex items-center gap-2">
+                  <input type="radio" name="contact_type" value="individual" checked class="h-4 w-4" />
+                  <span>Individual</span>
+                </label>
+                <label class="inline-flex items-center gap-2">
+                  <input type="radio" name="contact_type" value="organization" class="h-4 w-4" />
+                  <span>Business/Organization</span>
+                </label>
+              </div>
+            </fieldset>
+            <label class="text-sm font-medium text-[#2D5016] flex flex-col gap-1">
+               <span>Business/Organization Name <span class="text-red-500 hidden" data-org-required>*</span></span>
+               <input id="org-input" name="org" class="w-full rounded-md border border-gray-200 bg-[#FFF8F0] px-4 py-2 text-base focus:ring-2 focus:ring-[#FF6B35] focus:border-[#FF6B35] outline-none transition" placeholder="(Optional)" />
+            </label>
+            <label class="text-sm font-medium text-[#2D5016] flex flex-col gap-1">
+              <span>Contact Name <span class="text-red-500">*</span></span>
+              <input required name="name" class="w-full rounded-md border border-gray-200 bg-[#FFF8F0] px-4 py-2 text-base focus:ring-2 focus:ring-[#FF6B35] focus:border-[#FF6B35] outline-none transition" placeholder="Your full name" />
+            </label>
+            <label class="text-sm font-medium text-[#2D5016] flex flex-col gap-1">
+              <span>Email <span class="text-red-500">*</span></span>
+              <input required type="email" name="email" class="w-full rounded-md border border-gray-200 bg-[#FFF8F0] px-4 py-2 text-base focus:ring-2 focus:ring-[#FF6B35] focus:border-[#FF6B35] outline-none transition" placeholder="you@email.com" />
+            </label>
+            <label class="text-sm font-medium text-[#2D5016] flex flex-col gap-1">
+              <span>Phone</span>
+              <input name="phone" class="w-full rounded-md border border-gray-200 bg-[#FFF8F0] px-4 py-2 text-base focus:ring-2 focus:ring-[#FF6B35] focus:border-[#FF6B35] outline-none transition" placeholder="(Optional)" />
+            </label>
+            <label class="text-sm font-medium text-[#2D5016] flex flex-col gap-1">
+              <span>Message <span class="text-red-500">*</span></span>
+              <textarea required name="message" class="w-full rounded-md border border-gray-200 bg-[#FFF8F0] px-4 py-2 text-base min-h-32 focus:ring-2 focus:ring-[#FF6B35] focus:border-[#FF6B35] outline-none transition" placeholder="How can we help?"></textarea>
+            </label>
+          </div>
+          <div class="flex justify-end">
+            <button type="submit" data-submit-button data-loading="Sending..."
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#FF6B35] text-white px-6 py-3 text-base font-bold shadow-lg hover:bg-[#ff8660] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF6B35] transition-colors duration-150"
+            >
+              <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 17l6.17-6.17a2 2 0 012.83 0L20 17M12 13v6"/></svg>
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </section>
 </Layout>
+<script>
+  (() => {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+    const btn = form.querySelector('[data-submit-button]');
+    if (!btn) return;
+    // Toggle org requirement based on contact type
+    const orgInput = form.querySelector('#org-input');
+    const orgStar = form.querySelector('[data-org-required]');
+    const radios = form.querySelectorAll('input[name="contact_type"]');
+    function updateOrgRequirement() {
+      const selected = form.querySelector('input[name="contact_type"]:checked');
+      const isOrg = selected && (selected.value === 'organization');
+      if (orgInput) orgInput.required = Boolean(isOrg);
+      if (orgStar) orgStar.classList.toggle('hidden', !isOrg);
+      if (orgInput) orgInput.placeholder = isOrg ? 'Your business, clinic, or group' : '(Optional)';
+    }
+    radios.forEach(r => r.addEventListener('change', updateOrgRequirement));
+    updateOrgRequirement();
+    form.addEventListener('submit', () => {
+      if (!form.checkValidity()) return;
+      btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
+      btn.textContent = btn.getAttribute('data-loading') || 'Sending...';
+      btn.classList.add('opacity-80', 'cursor-not-allowed');
+    });
+  })();
+</script>
 
 

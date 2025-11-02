@@ -1,15 +1,17 @@
 ---
 const links = [
-  { href: '/about', label: 'About' },
-  { href: '/how-it-works', label: 'How It Works' },
+  { href: '/#about', label: 'About' },
+  { href: '/#how-it-works', label: 'How It Works' },
   { href: '/contact', label: 'Contact' },
 ];
 ---
 <header class="bg-[--color-secondary] border-b border-[color:rgb(0_0_0_/_0.06)]">
   <div class="container flex items-center justify-between py-3">
     <a href="/" class="flex items-center gap-2 font-semibold text-[--color-accent]">
-      <span class="text-xl tracking-tight">Care<span class="text-[--color-primary]">to</span>Share</span>
-      <span class="sr-only">Care to Share November</span>
+      <span class="text-xl tracking-tight">
+        Share<span class="text-[#FF6B35]">to</span>Care<span class="text-[--color-primary]"> | MS</span>
+      </span>
+      <span class="sr-only">SharetoCare Mississippi</span>
     </a>
     <nav class="hidden md:flex items-center gap-6">
       {links.map((l) => (

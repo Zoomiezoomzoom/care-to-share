@@ -59,9 +59,9 @@ import Layout from '../layouts/Layout.astro';
                 </label>
               </div>
             </div>
-            <div class="pt-4 border-t flex items-center justify-between gap-4">
-              <span class="text-sm text-gray-600"></span>
-              <button type="button" data-next class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#B55D3B] transition-colors">
+            <div class="pt-4 border-t flex flex-col-reverse sm:flex-row items-stretch sm:items-center gap-3">
+              <span class="text-sm text-gray-600 hidden sm:block"></span>
+              <button type="button" data-next class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#B55D3B] transition-colors w-full sm:w-auto">
                 <span>Continue</span>
                 <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M5 12h12"/>
@@ -95,9 +95,9 @@ import Layout from '../layouts/Layout.astro';
                 <input name="business_type_other" placeholder="Specify type" class="flex-1 min-w-0 h-9 rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
               </label>
             </div>
-            <div class="pt-4 border-t flex items-center justify-between gap-4">
-              <button type="button" data-prev class="text-sm text-gray-700 hover:underline">Back</button>
-              <button type="button" data-next class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#B55D3B] transition-colors">
+            <div class="pt-4 border-t flex flex-col-reverse sm:flex-row items-stretch sm:items-center gap-3">
+              <button type="button" data-prev class="text-sm text-gray-700 hover:underline w-full sm:w-auto text-center">Back</button>
+              <button type="button" data-next class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#B55D3B] transition-colors w-full sm:w-auto">
                 <span>Continue</span>
                 <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M5 12h12"/>
@@ -151,10 +151,12 @@ import Layout from '../layouts/Layout.astro';
                 <input type="radio" name="duration" value="all_november" class="h-4 w-4" />
                 <span>All of November</span>
               </label>
-              <div class="flex items-center gap-3 border border-gray-200 rounded-xl px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
-                <input type="radio" name="duration" value="part_of_november" class="h-4 w-4" />
-                <span class="whitespace-nowrap">Part of November:</span>
-                <input name="duration_dates" placeholder="e.g., Nov 10–20" class="h-10 flex-1 min-w-0 rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
+              <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
+                <label class="inline-flex items-center gap-3">
+                  <input type="radio" name="duration" value="part_of_november" class="h-4 w-4" />
+                  <span>Part of November</span>
+                </label>
+                <input name="duration_dates" placeholder="e.g., Nov 10–20" class="h-10 w-full sm:flex-1 min-w-0 rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
               </div>
               <label class="inline-flex items-center gap-3 border border-gray-200 rounded-xl px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
                 <input type="radio" name="duration" value="flexible" class="h-4 w-4" />
@@ -173,9 +175,9 @@ import Layout from '../layouts/Layout.astro';
                 <span>Not sure (need guidance)</span>
               </label>
             </fieldset>
-            <div class="pt-4 border-t flex items-center justify-between gap-4">
-              <button type="button" data-prev class="text-sm text-gray-700 hover:underline">Back</button>
-              <button type="button" data-next class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#B55D3B] transition-colors">
+            <div class="pt-4 border-t flex flex-col-reverse sm:flex-row items-stretch sm:items-center gap-3">
+              <button type="button" data-prev class="text-sm text-gray-700 hover:underline w-full sm:w-auto text-center">Back</button>
+              <button type="button" data-next class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#B55D3B] transition-colors w-full sm:w-auto">
                 <span>Continue</span>
                 <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M5 12h12"/>
@@ -199,9 +201,9 @@ import Layout from '../layouts/Layout.astro';
             <label class="text-sm font-medium text-[#2D5016]">Questions, concerns, or anything else we should know?
               <textarea name="additional_info" class="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm min-h-32 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]"></textarea>
             </label>
-            <div class="pt-4 border-t flex items-center justify-between gap-4">
-              <button type="button" data-prev class="text-sm text-gray-700 hover:underline">Back</button>
-              <button type="button" data-next class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#B55D3B] transition-colors">
+            <div class="pt-4 border-t flex flex-col-reverse sm:flex-row items-stretch sm:items-center gap-3">
+              <button type="button" data-prev class="text-sm text-gray-700 hover:underline w-full sm:w-auto text-center">Back</button>
+              <button type="button" data-next class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#B55D3B] transition-colors w-full sm:w-auto">
                 <span>Continue</span>
                 <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M5 12h12"/>
@@ -227,16 +229,16 @@ import Layout from '../layouts/Layout.astro';
               <label class="inline-flex items-start gap-2 text-sm"><input required type="checkbox" name="ack_participation" /> <span>My business is willing to participate in Care to Share November</span></label>
               <label class="inline-flex items-start gap-2 text-sm"><input required type="checkbox" name="ack_followup" /> <span>I understand I'll receive follow-up information about signage, materials, and coordination</span></label>
             </div>
-            <div class="pt-4 border-t flex items-center gap-4">
-              <button type="button" data-prev class="text-sm text-gray-700 hover:underline">Back</button>
-              <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-lg hover:shadow-xl hover:bg-[#B55D3B] transition-all">
+            <div class="pt-4 border-t flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <button type="button" data-prev class="text-sm text-gray-700 hover:underline w-full sm:w-auto text-center">Back</button>
+              <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-lg hover:shadow-xl hover:bg-[#B55D3B] transition-all w-full sm:w-auto">
                 <span>Submit Registration</span>
                 <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M5 12h12"/>
                   <path d="M13 6l6 6-6 6"/>
                 </svg>
               </button>
-              <p class="text-sm text-gray-600">Questions? Email <a class="underline" href="mailto:partnership@caretosharems.org">partnership@caretosharems.org</a></p>
+              <p class="text-sm text-gray-600">Questions? <a class="underline" href="/contact">Use the contact form</a></p>
             </div>
           </section>
         </form>

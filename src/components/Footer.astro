@@ -1,0 +1,37 @@
+---
+const year = new Date().getFullYear();
+const nav = [
+  { href: '/#about', label: 'About' },
+  { href: '/#how-it-works', label: 'How It Works' },
+  { href: '/become-a-partner', label: 'Become a Partner' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+<footer class="bg-[--color-secondary] border-t border-[color:rgb(0_0_0_/_0.06)] mt-10">
+  <div class="container py-10 md:py-12">
+    <div class="grid gap-8 md:grid-cols-3">
+      <div class="space-y-2">
+        <a href="/" class="inline-flex items-center gap-2 font-semibold text-[--color-accent]">
+          <span class="text-xl tracking-tight">Share<span class="text-[#FF6B35]">to</span>Care<span class="text-[--color-primary]"> | MS</span></span>
+          <span class="sr-only">SharetoCare Mississippi</span>
+        </a>
+        <p class="text-sm text-[rgb(0_0_0/0.6)] max-w-sm">
+          Neighbors helping neighbors. Find food collection and pickup sites across Mississippi.
+        </p>
+      </div>
+      <nav class="grid grid-cols-2 gap-4 md:col-span-2 md:justify-end md:text-right">
+        {nav.map((l) => (
+          <a href={l.href} class="text-sm hover:opacity-80">{l.label}</a>
+        ))}
+      </nav>
+    </div>
+    <div class="mt-8 pt-6 border-t border-[color:rgb(0_0_0_/_0.06)] flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-6 justify-between text-sm text-[rgb(0_0_0/0.6)]">
+      <p>© {year} SharetoCare | MS</p>
+      <p>
+        Questions? <a href="/contact" class="underline">Use the contact form</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+

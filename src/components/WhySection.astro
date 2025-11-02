@@ -1,40 +1,92 @@
-<section class="py-12 md:py-16 bg-[#FFF8F0]">
-  <div class="container">
-    <div>
-      <span class="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 ring-1 ring-gray-200 shadow-sm text-xs font-medium text-[#2D5016]">
-        <svg aria-hidden="true" class="h-3.5 w-3.5 text-[#C86D4B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M19.1 4.9l-2.8 2.8M7.7 16.3l-2.8 2.8"/></svg>
-        Our Story
-      </span>
-      <h2 class="mt-3 text-3xl md:text-4xl tracking-tight">Why Care to Share?</h2>
-    </div>
+<!-- About / Why Care to Share Section -->
+<section id="about" class="py-16 md:py-20 bg-white scroll-mt-24">
+  <div class="container max-w-6xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-16 items-start">
 
-    <div class="mt-8 grid md:grid-cols-2 gap-10 items-start">
-      <div>
-        <p class="text-[15px] md:text-[17px] leading-relaxed text-[rgb(0_0_0/0.75)]"><span class="font-semibold text-[#1c1c1c]">1 in 6 Mississippians</span> face food insecurity. Care to Share makes getting help as simple as visiting places you already trust—your clinic, barbershop, pharmacy, or local business.</p>
-        <ul class="mt-4 grid sm:grid-cols-2 gap-2 text-sm text-[rgb(0_0_0/0.75)]">
-          <li class="flex items-start gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-[#C86D4B]"></span><span>Accessible, no paperwork</span></li>
-          <li class="flex items-start gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-[#C86D4B]"></span><span>Community‑driven network</span></li>
-          <li class="flex items-start gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-[#C86D4B]"></span><span>Immediate support</span></li>
-        </ul>
+      <!-- Left: Header + Content -->
+      <div class="space-y-6">
 
-        <div class="mt-6">
-          <a href="/about" class="inline-flex items-center gap-2 rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-[#2D5016] hover:border-[#C86D4B] hover:text-[#C86D4B] transition-colors">
-            Learn More About Our Mission
-            <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h12"/><path d="M13 6l6 6-6 6"/></svg>
+        <!-- Section Header (moved from above, now on the left) -->
+        <div class="mb-12">
+          <span class="inline-block text-sm font-semibold text-[#FF6B35] mb-2">Our Story</span>
+          <h2 class="text-3xl md:text-4xl font-bold text-[#2D5016]">
+            Why We're Doing This
+          </h2>
+        </div>
+        
+        <p class="text-gray-700 text-lg leading-relaxed">
+          As healthcare providers at Quinn Healthcare in Jackson, 
+          <strong class="text-[#2D5016]">Melissa Quinn, MBA-HCM, ACHE, and Dr. Timothy Quinn</strong> 
+          have seen firsthand how food insecurity affects Mississippi families.
+        </p>
+        
+        <p class="text-gray-700 text-lg leading-relaxed">
+          This November, many families are facing challenges accessing food. 
+          Rather than waiting for solutions to come from elsewhere, we asked ourselves: 
+          <span class="text-[#2D5016] font-bold">"What if our clinic—and other businesses like it—could become places where neighbors help neighbors?"</span>
+        </p>
+
+        <p class="text-gray-700 text-lg leading-relaxed">
+          In collaboration with other committed Mississippi businesses, we launched 
+          Share to Care Mississippi—a grassroots movement that turns local businesses 
+          into community food hubs.
+        </p>
+
+        <!-- Simple Quote Attribution -->
+        <div class="bg-gray-50 rounded-lg p-6 border-l-4 border-[#FF6B35]">
+          <p class="text-lg italic text-gray-700 mb-4">
+            "When your nutrition is in jeopardy, your health is in jeopardy."
+          </p>
+          <p class="text-sm font-semibold text-[#2D5016]">
+            — Timothy Quinn, MD (Quinn Healthcare)
+          </p>
+        </div>
+
+        <!-- Simple CTA -->
+        <div class="pt-6">
+          <a 
+            href="#become-a-partner" 
+            class="inline-flex items-center gap-2 px-8 py-3 bg-[#FF6B35] text-white font-semibold rounded-lg hover:bg-[#B55D3B] transition-colors"
+          >
+            Join the Movement
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
           </a>
         </div>
+
       </div>
 
-      <figure class="relative rounded-2xl overflow-hidden bg-white ring-1 ring-gray-200 shadow-xl">
-        <img src="/food-pickup.jpg" alt="Community volunteer at a local pickup site" class="w-full h-full max-h-[380px] object-cover" loading="lazy" />
-        <figcaption class="absolute -top-4 right-4">
-          <div class="rounded-xl bg-white px-4 py-3 ring-1 ring-gray-200 shadow-sm">
-            <div class="text-lg font-bold text-[#2D5016]">100%</div>
-            <div class="text-xs text-[rgb(0_0_0/0.6)]">Community-driven solution</div>
-          </div>
-        </figcaption>
-      </figure>
+      <!-- Right: Photo -->
+      <div class="lg:sticky lg:top-24">
+        <img 
+          src="/public/TimMelissa.jpg" 
+          alt="Melissa Quinn and Dr. Timothy Quinn" 
+          class="rounded-lg shadow-lg w-full"
+        />
+        <p class="text-sm text-gray-500 text-center mt-4">
+          Dr. Timothy Quinn & Melissa Quinn, Co-Founders
+        </p>
+      </div>
+
     </div>
+
+    <!-- Stats - With Same Background, No Shadow -->
+    <div class="mt-24 grid md:grid-cols-3 gap-8 text-center">
+      <div class="bg-[#FFF6F1] rounded-lg p-6">
+        <div class="text-5xl font-bold text-[#FF6B35] mb-2">100+</div>
+        <div class="text-gray-600">Collection Sites Goal</div>
+      </div>
+      <div class="bg-[#FFF6F1] rounded-lg p-6">
+        <div class="text-5xl font-bold text-[#FF6B35] mb-2">3</div>
+        <div class="text-gray-600">Simple Steps</div>
+      </div>
+      <div class="bg-[#FFF6F1] rounded-lg p-6">
+        <div class="text-5xl font-bold text-[#FF6B35] mb-2">Nov</div>
+        <div class="text-gray-600">Launch Month</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
