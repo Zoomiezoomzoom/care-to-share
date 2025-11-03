@@ -6,7 +6,7 @@ import Layout from '../layouts/Layout.astro';
   <section class="bg-[#F6F8FB] border-b">
     <div class="container py-10 md:py-14">
       <h1 class="text-3xl md:text-4xl">Register Your Business as a Collection Site</h1>
-      <p class="mt-3 max-w-prose text-[rgb(0_0_0/0.7)]">Help us build 100+ sites across Mississippi this November.</p>
+      <p class="mt-3 max-w-prose text-[rgb(0_0_0/0.7)]">Help us build 100+ sites across Mississippi, starting in November.</p>
     </div>
   </section>
   <section class="py-8">
@@ -146,17 +146,17 @@ import Layout from '../layouts/Layout.astro';
             </div>
 
             <fieldset class="grid gap-3">
-              <legend class="text-sm font-medium text-[#2D5016] mb-2 md:mb-2.5">How long can you participate?</legend>
+              <legend class="text-sm font-medium text-[#2D5016] mb-2 md:mb-2.5">When do you plan to participate?</legend>
               <label class="inline-flex items-center gap-3 border border-gray-200 rounded-xl px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
-                <input type="radio" name="duration" value="all_november" class="h-4 w-4" />
-                <span>All of November</span>
+                <input type="radio" name="duration" value="starting_november_ongoing" class="h-4 w-4" />
+                <span>Starting in November (ongoing)</span>
               </label>
               <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
                 <label class="inline-flex items-center gap-3">
-                  <input type="radio" name="duration" value="part_of_november" class="h-4 w-4" />
-                  <span>Part of November</span>
+                  <input type="radio" name="duration" value="specific_dates" class="h-4 w-4" />
+                  <span>Specific dates</span>
                 </label>
-                <input name="duration_dates" placeholder="e.g., Nov 10–20" class="h-10 w-full sm:flex-1 min-w-0 rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
+                <input name="duration_dates" placeholder="e.g., Nov 10–20 or Dec 1–15" class="h-10 w-full sm:flex-1 min-w-0 rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
               </div>
               <label class="inline-flex items-center gap-3 border border-gray-200 rounded-xl px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
                 <input type="radio" name="duration" value="flexible" class="h-4 w-4" />
@@ -226,7 +226,7 @@ import Layout from '../layouts/Layout.astro';
             </div>
             <div class="flex flex-col gap-4 bg-[#F6F8FB] rounded-lg p-6">
               <p class="text-sm text-gray-600">By submitting this form, I confirm that:</p>
-              <label class="inline-flex items-start gap-2 text-sm"><input required type="checkbox" name="ack_participation" /> <span>My business is willing to participate in Care to Share November</span></label>
+              <label class="inline-flex items-start gap-2 text-sm"><input required type="checkbox" name="ack_participation" /> <span>My business is willing to participate in Care to Share</span></label>
               <label class="inline-flex items-start gap-2 text-sm"><input required type="checkbox" name="ack_followup" /> <span>I understand I'll receive follow-up information about signage, materials, and coordination</span></label>
             </div>
             <div class="pt-4 border-t flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
