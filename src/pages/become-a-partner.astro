@@ -4,62 +4,89 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Become a Partner – Care to Share" description="Register your business as a Care to Share donation or pickup site.">
   <section class="bg-[#F6F8FB] border-b">
-    <div class="container py-10 md:py-14">
-      <h1 class="text-3xl md:text-4xl">Register Your Business as a Collection Site</h1>
+    <div class="container py-8 sm:py-10 md:py-14">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl">Register Your Business as a Collection Site</h1>
       <p class="mt-3 max-w-prose text-[rgb(0_0_0/0.7)]">Help us build 100+ sites across Mississippi, starting in November.</p>
+      <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-semibold text-[#2D5016] bg-white rounded-full px-3 py-1 ring-1 ring-[rgb(0_0_0/0.06)]">
+        <span>✓ Super short form — ~2 minutes</span>
+        <span class="text-[rgb(0_0_0/0.5)]">No log-in needed</span>
+      </div>
     </div>
   </section>
-  <section class="py-8">
+  <section class="py-6 sm:py-8">
     <div class="container">
-      <div class="max-w-4xl mx-auto rounded-2xl border border-gray-200 bg-white shadow-lg p-5 md:p-10">
-        <form name="partner" id="partner-form" method="POST" action="/api/partner" enctype="application/x-www-form-urlencoded" class="grid gap-8">
-          <div class="text-sm text-gray-600" data-step-indicator>Step 1 of 5</div>
+      <div class="w-full max-w-lg sm:max-w-2xl md:max-w-4xl mx-auto rounded-2xl border border-gray-200 bg-white shadow-lg p-3 sm:p-5 md:p-10">
+        <form name="partner" id="partner-form" method="POST" action="/api/partner" enctype="application/x-www-form-urlencoded" class="grid gap-6 sm:gap-8">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div class="text-sm text-gray-600" data-step-indicator>Step 1 of 5</div>
+            <div class="text-xs text-[#2D5016] font-medium">
+              Most fields optional • Average completion ~2 minutes
+            </div>
+          </div>
 
           <!-- BUSINESS INFORMATION -->
-          <section class="grid gap-6" data-step="1">
-            <div class="flex items-center gap-3 pb-2 border-b">
-              <div class="w-10 h-10 rounded-lg bg-[#C86D4B]/10 flex items-center justify-center">
+          <section class="grid gap-5 sm:gap-6" data-step="1">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 pb-2 border-b">
+              <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-[#C86D4B]/10 flex items-center justify-center">
                 <svg aria-hidden="true" class="w-5 h-5 text-[#C86D4B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="3" y="10" width="18" height="11" rx="2"/>
                   <path d="M7 10V6h10v4"/>
                   <path d="M9 14h2M13 14h2"/>
                 </svg>
               </div>
-              <h2 class="text-xl font-semibold">Business Information</h2>
+              <h2 class="text-lg sm:text-xl font-semibold">Business Information</h2>
             </div>
-            <div class="grid md:grid-cols-2 gap-4">
-              <label class="text-sm font-medium text-[#2D5016]">Business/Organization Name *
+            <div class="grid gap-3 sm:gap-4 sm:grid-cols-2">
+              <label class="text-sm font-medium text-[#2D5016] flex flex-col">Business/Organization Name *
                 <input required name="org" placeholder="Ridgeway Pharmacy" class="mt-1 w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
               </label>
-              <label class="text-sm font-medium text-[#2D5016]">Contact Person *
+              <label class="text-sm font-medium text-[#2D5016] flex flex-col">Contact Person *
                 <input required name="name" placeholder="Jane Doe" class="mt-1 w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
               </label>
-              <label class="text-sm font-medium text-[#2D5016]">Email *
+              <label class="text-sm font-medium text-[#2D5016] flex flex-col">Email *
                 <input required type="email" name="email" placeholder="jane@example.com" class="mt-1 w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
               </label>
-              <label class="text-sm font-medium text-[#2D5016]">Phone *
+              <label class="text-sm font-medium text-[#2D5016] flex flex-col">Phone *
                 <input required name="phone" placeholder="(601) 555-0123" class="mt-1 w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
               </label>
-              <label class="text-sm font-medium text-[#2D5016]">Street Address *
+              <label class="text-sm font-medium text-[#2D5016] flex flex-col sm:col-span-2 md:col-span-1">Street Address *
                 <input required name="address" placeholder="123 Wellness Ave" class="mt-1 w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
               </label>
-              <div class="grid md:grid-cols-2 gap-4 md:col-span-1">
-                <label class="text-sm font-medium text-[#2D5016]">City *
-                  <select required name="city" class="mt-1 w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]">
-                    <option value="" disabled selected>Select City</option>
-                    <option>Jackson</option>
-                    <option>Terry</option>
-                    <option>Canton</option>
-                    <option>McComb</option>
-                    <option>Other</option>
-                  </select>
+              <div class="grid gap-3 sm:grid-cols-2 sm:col-span-2 md:col-span-1">
+                <label class="text-sm font-medium text-[#2D5016] flex flex-col">City *
+                  <div>
+                    <select id="city-select" class="mt-1 w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]">
+                      <option value="" disabled selected>Select City</option>
+                      <option>Jackson</option>
+                      <option>Madison</option>
+                      <option>Ridgeland</option>
+                      <option>Clinton</option>
+                      <option>Pearl</option>
+                      <option>Flowood</option>
+                      <option>Brandon</option>
+                      <option>Canton</option>
+                      <option>Terry</option>
+                      <option>McComb</option>
+                      <option>Brookhaven</option>
+                      <option>Vicksburg</option>
+                      <option>Yazoo City</option>
+                      <option>Hattiesburg</option>
+                      <option>Oxford</option>
+                      <option>Tupelo</option>
+                      <option>Biloxi</option>
+                      <option>Gulfport</option>
+                      <option value="__other__">Other (type your city)</option>
+                    </select>
+                    <input id="city-other" placeholder="Type your city" class="mt-2 w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B] hidden" />
+                    <input type="hidden" name="city" id="city-hidden" />
+                  </div>
                 </label>
-                <label class="text-sm font-medium text-[#2D5016]">ZIP Code *
+                <label class="text-sm font-medium text-[#2D5016] flex flex-col">ZIP Code *
                   <input required name="zip" placeholder="39201" class="mt-1 w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
                 </label>
               </div>
             </div>
-            <div class="pt-4 border-t flex flex-col-reverse sm:flex-row items-stretch sm:items-center gap-3">
+            <div class="pt-4 border-t flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-end">
               <span class="text-sm text-gray-600 hidden sm:block"></span>
               <button type="button" data-next class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#B55D3B] transition-colors w-full sm:w-auto">
                 <span>Continue</span>
@@ -72,18 +99,18 @@ import Layout from '../layouts/Layout.astro';
           </section>
 
           <!-- TYPE OF BUSINESS -->
-          <section class="grid gap-6 hidden" data-step="2">
-            <div class="flex items-center gap-3 pb-2 border-b">
-              <div class="w-10 h-10 rounded-lg bg-[#C86D4B]/10 flex items-center justify-center">
+          <section class="grid gap-5 sm:gap-6 hidden" data-step="2">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 pb-2 border-b">
+              <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-[#C86D4B]/10 flex items-center justify-center">
                 <svg aria-hidden="true" class="w-5 h-5 text-[#C86D4B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M4 10h16l-2 8H6l-2-8Z"/>
                   <path d="M9 6h6l1 4H8l1-4Z"/>
                 </svg>
               </div>
-              <h2 class="text-xl font-semibold">Type of Business</h2>
+              <h2 class="text-lg sm:text-xl font-semibold">Type of Business</h2>
             </div>
             <p class="text-sm text-gray-600">What type of business are you? <span class="text-red-600">*</span></p>
-            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+            <div class="grid gap-2 sm:gap-3 sm:grid-cols-2 md:grid-cols-3 text-sm">
               {['Medical Clinic','Barbershop','Beauty Shop','Law Office','Pharmacy','Retail Store','Community Center'].map((label) => (
                 <label class="flex items-center gap-3 border border-gray-200 rounded-xl h-12 w-full px-4 md:px-5 hover:bg-[#FFF8F0] transition-colors">
                   <input type="radio" name="business_type" value={label} /> {label}
@@ -95,7 +122,7 @@ import Layout from '../layouts/Layout.astro';
                 <input name="business_type_other" placeholder="Specify type" class="flex-1 min-w-0 h-9 rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
               </label>
             </div>
-            <div class="pt-4 border-t flex flex-col-reverse sm:flex-row items-stretch sm:items-center gap-3">
+            <div class="pt-4 border-t flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
               <button type="button" data-prev class="text-sm text-gray-700 hover:underline w-full sm:w-auto text-center">Back</button>
               <button type="button" data-next class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#B55D3B] transition-colors w-full sm:w-auto">
                 <span>Continue</span>
@@ -108,27 +135,27 @@ import Layout from '../layouts/Layout.astro';
           </section>
 
           <!-- PARTICIPATION DETAILS -->
-          <section class="grid gap-6 hidden" data-step="3">
-            <div class="flex items-center gap-3 pb-2 border-b">
-              <div class="w-10 h-10 rounded-lg bg-[#C86D4B]/10 flex items-center justify-center">
+          <section class="grid gap-5 sm:gap-6 hidden" data-step="3">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 pb-2 border-b">
+              <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-[#C86D4B]/10 flex items-center justify-center">
                 <svg aria-hidden="true" class="w-5 h-5 text-[#C86D4B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M21 16V8a2 2 0 0 0-1-1.73l-6-3.46a2 2 0 0 0-2 0l-6 3.46A2 2 0 0 0 5 8v8a2 2 0 0 0 1 1.73l6 3.46a2 2 0 0 0 2 0l6-3.46A2 2 0 0 0 21 16Z"/>
                 </svg>
               </div>
-              <h2 class="text-xl font-semibold">Participation Details</h2>
+              <h2 class="text-lg sm:text-xl font-semibold">Participation Details</h2>
             </div>
 
-            <fieldset class="grid gap-3">
+            <fieldset class="grid gap-2 sm:gap-3">
               <legend class="text-sm font-medium text-[#2D5016] mb-2 md:mb-2.5">What will you offer? <span class="text-red-600">*</span> <span class="text-gray-500 font-normal">(check all that apply)</span></legend>
-              <label class="inline-flex items-center gap-3 border border-gray-200 rounded-xl px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
+              <label class="inline-flex items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
                 <input type="checkbox" name="offer_dropoff" class="h-4 w-4" />
                 <span>Accept donations (drop-off site)</span>
               </label>
-              <label class="inline-flex items-center gap-3 border border-gray-200 rounded-xl px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
+              <label class="inline-flex items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
                 <input type="checkbox" name="offer_pickup" class="h-4 w-4" />
                 <span>Allow people to pick up food</span>
               </label>
-              <label class="inline-flex items-center gap-3 border border-gray-200 rounded-xl px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
+              <label class="inline-flex items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
                 <input type="checkbox" name="offer_both" class="h-4 w-4" />
                 <span>Both</span>
               </label>
@@ -145,37 +172,37 @@ import Layout from '../layouts/Layout.astro';
               <input required name="open_hours" placeholder='e.g., "Mon–Fri 9am–5pm" or "Weekdays only"' class="w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
             </div>
 
-            <fieldset class="grid gap-3">
+            <fieldset class="grid gap-2 sm:gap-3">
               <legend class="text-sm font-medium text-[#2D5016] mb-2 md:mb-2.5">When do you plan to participate?</legend>
-              <label class="inline-flex items-center gap-3 border border-gray-200 rounded-xl px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
+              <label class="inline-flex items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
                 <input type="radio" name="duration" value="starting_november_ongoing" class="h-4 w-4" />
                 <span>Starting in November (ongoing)</span>
               </label>
-              <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
-                <label class="inline-flex items-center gap-3">
+              <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
+                <label class="inline-flex items-center gap-2 sm:gap-3">
                   <input type="radio" name="duration" value="specific_dates" class="h-4 w-4" />
                   <span>Specific dates</span>
                 </label>
                 <input name="duration_dates" placeholder="e.g., Nov 10–20 or Dec 1–15" class="h-10 w-full sm:flex-1 min-w-0 rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
               </div>
-              <label class="inline-flex items-center gap-3 border border-gray-200 rounded-xl px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
+              <label class="inline-flex items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
                 <input type="radio" name="duration" value="flexible" class="h-4 w-4" />
                 <span>Flexible / To be determined</span>
               </label>
             </fieldset>
 
-            <fieldset class="grid gap-3">
+            <fieldset class="grid gap-2 sm:gap-3">
               <legend class="text-sm font-medium text-[#2D5016] mb-2 md:mb-2.5">Do you have a safe space to store donations?</legend>
-              <label class="inline-flex items-center gap-3 border border-gray-200 rounded-xl px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
+              <label class="inline-flex items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
                 <input type="radio" name="storage_space" value="yes" class="h-4 w-4" />
                 <span>Yes</span>
               </label>
-              <label class="inline-flex items-center gap-3 border border-gray-200 rounded-xl px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
+              <label class="inline-flex items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
                 <input type="radio" name="storage_space" value="not_sure" class="h-4 w-4" />
                 <span>Not sure (need guidance)</span>
               </label>
             </fieldset>
-            <div class="pt-4 border-t flex flex-col-reverse sm:flex-row items-stretch sm:items-center gap-3">
+            <div class="pt-4 border-t flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
               <button type="button" data-prev class="text-sm text-gray-700 hover:underline w-full sm:w-auto text-center">Back</button>
               <button type="button" data-next class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#B55D3B] transition-colors w-full sm:w-auto">
                 <span>Continue</span>
@@ -188,20 +215,20 @@ import Layout from '../layouts/Layout.astro';
           </section>
 
           <!-- ADDITIONAL INFORMATION -->
-          <section class="grid gap-6 hidden" data-step="4">
-            <div class="flex items-center gap-3 pb-2 border-b">
-              <div class="w-10 h-10 rounded-lg bg-[#C86D4B]/10 flex items-center justify-center">
+          <section class="grid gap-5 sm:gap-6 hidden" data-step="4">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 pb-2 border-b">
+              <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-[#C86D4B]/10 flex items-center justify-center">
                 <svg aria-hidden="true" class="w-5 h-5 text-[#C86D4B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>
                 </svg>
               </div>
-              <h2 class="text-xl font-semibold">Additional Information</h2>
+              <h2 class="text-lg sm:text-xl font-semibold">Additional Information</h2>
               <span class="text-sm text-gray-500">(Optional)</span>
             </div>
-            <label class="text-sm font-medium text-[#2D5016]">Questions, concerns, or anything else we should know?
-              <textarea name="additional_info" class="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm min-h-32 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]"></textarea>
+            <label class="text-sm font-medium text-[#2D5016] flex flex-col">Questions, concerns, or anything else we should know?
+              <textarea name="additional_info" class="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm min-h-24 sm:min-h-32 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]"></textarea>
             </label>
-            <div class="pt-4 border-t flex flex-col-reverse sm:flex-row items-stretch sm:items-center gap-3">
+            <div class="pt-4 border-t flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
               <button type="button" data-prev class="text-sm text-gray-700 hover:underline w-full sm:w-auto text-center">Back</button>
               <button type="button" data-next class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#B55D3B] transition-colors w-full sm:w-auto">
                 <span>Continue</span>
@@ -214,22 +241,22 @@ import Layout from '../layouts/Layout.astro';
           </section>
 
           <!-- ACKNOWLEDGEMENTS -->
-          <section class="grid gap-6 hidden" data-step="5">
-            <div class="flex items-center gap-3 pb-2 border-b">
-              <div class="w-10 h-10 rounded-lg bg-[#C86D4B]/10 flex items-center justify-center">
+          <section class="grid gap-5 sm:gap-6 hidden" data-step="5">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 pb-2 border-b">
+              <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-[#C86D4B]/10 flex items-center justify-center">
                 <svg aria-hidden="true" class="w-5 h-5 text-[#C86D4B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="9"/>
                   <path d="m9 12 2 2 4-4"/>
                 </svg>
               </div>
-              <h2 class="text-xl font-semibold">Acknowledgements</h2>
+              <h2 class="text-lg sm:text-xl font-semibold">Acknowledgements</h2>
             </div>
-            <div class="flex flex-col gap-4 bg-[#F6F8FB] rounded-lg p-6">
+            <div class="flex flex-col gap-3 sm:gap-4 bg-[#F6F8FB] rounded-lg p-4 sm:p-6">
               <p class="text-sm text-gray-600">By submitting this form, I confirm that:</p>
               <label class="inline-flex items-start gap-2 text-sm"><input required type="checkbox" name="ack_participation" /> <span>My business is willing to participate in Care to Share</span></label>
               <label class="inline-flex items-start gap-2 text-sm"><input required type="checkbox" name="ack_followup" /> <span>I understand I'll receive follow-up information about signage, materials, and coordination</span></label>
             </div>
-            <div class="pt-4 border-t flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <div class="pt-4 border-t flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <button type="button" data-prev class="text-sm text-gray-700 hover:underline w-full sm:w-auto text-center">Back</button>
               <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-lg hover:shadow-xl hover:bg-[#B55D3B] transition-all w-full sm:w-auto">
                 <span>Submit Registration</span>
@@ -261,7 +288,7 @@ import Layout from '../layouts/Layout.astro';
         });
         if (indicator) indicator.textContent = `Step ${current} of ${total}`;
         const card = form.closest('.rounded-2xl');
-        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (card) card.scrollIntoView({ behavior: window.innerWidth < 640 ? 'auto' : 'smooth', block: 'start' });
       }
       form.addEventListener('click', (e) => {
         const target = e.target;
@@ -274,6 +301,33 @@ import Layout from '../layouts/Layout.astro';
         render();
       });
       render();
+
+      // City select -> hidden city + optional other input
+      const citySelect = document.getElementById('city-select');
+      const cityOther = document.getElementById('city-other');
+      const cityHidden = document.getElementById('city-hidden');
+      function updateCity() {
+        if (!(citySelect instanceof HTMLSelectElement) || !cityHidden) return;
+        const val = citySelect.value;
+        if (val === '__other__') {
+          if (cityOther instanceof HTMLInputElement) {
+            cityOther.classList.remove('hidden');
+            cityOther.setAttribute('required', 'true');
+            cityHidden.value = cityOther.value.trim();
+            cityOther.focus();
+          }
+        } else {
+          if (cityOther instanceof HTMLInputElement) {
+            cityOther.classList.add('hidden');
+            cityOther.removeAttribute('required');
+          }
+          cityHidden.value = val;
+        }
+      }
+      if (citySelect) citySelect.addEventListener('change', updateCity);
+      if (cityOther) cityOther.addEventListener('input', updateCity);
+      // Initialize on load
+      updateCity();
     })();
   </script>
 </Layout>

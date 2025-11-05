@@ -2,10 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import LocationFinder from '../components/LocationFinder.tsx';
-import { getCollection } from 'astro:content';
-
-const all = await getCollection('sites');
-const sites = all.filter((e) => e.data.city.toLowerCase() === 'jackson').map((e) => ({ slug: e.slug, ...e.data }));
 ---
 
 <Layout title="Care to Share – Jackson, MS" description="Find community food sites and donation drop-offs across Jackson. Supported by Mayor John Horhn.">
@@ -32,7 +28,7 @@ const sites = all.filter((e) => e.data.city.toLowerCase() === 'jackson').map((e)
       </div>
     </div>
   </section>
-  <LocationFinder client:only="react" sites={sites} />
+  <LocationFinder client:only="react" cityFilter="Jackson" />
 </Layout>
 
 

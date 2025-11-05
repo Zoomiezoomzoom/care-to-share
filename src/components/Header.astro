@@ -1,7 +1,9 @@
 ---
 const links = [
+  { href: '/#finder', label: 'Find Locations' },
   { href: '/#about', label: 'About' },
   { href: '/#how-it-works', label: 'How It Works' },
+  { href: '/donate', label: 'Give Money' },
   { href: '/contact', label: 'Contact' },
 ];
 ---
@@ -19,7 +21,10 @@ const links = [
       ))}
     </nav>
     <div class="hidden md:block">
-      <a href="/become-a-partner" class="inline-flex items-center rounded-md bg-[#FF6B35] text-white px-4 py-2.5 text-sm font-medium shadow-sm hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF6B35] ring-1 ring-[rgb(0_0_0/0.1)]">Become a Collection Site</a>
+      <a href="/become-a-partner" class="inline-flex items-center gap-2 rounded-md bg-[#FF6B35] text-white px-4 py-2.5 text-sm font-medium shadow-sm hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF6B35] ring-1 ring-[rgb(0_0_0/0.1)]">
+        <span>Become a Collection Site</span>
+        <span class="ml-1 inline-flex items-center rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-semibold">~2 min</span>
+      </a>
     </div>
     <button class="md:hidden inline-flex items-center p-2" aria-label="Open menu" onclick="document.getElementById('mobile-nav')?.classList.toggle('hidden')">
       <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>

@@ -10,13 +10,8 @@ import WhySection from '../components/WhySection.astro';
 import Newsletter from '../components/Newsletter.astro';
 import LocationFinder from '../components/LocationFinder.tsx';
 import Counter from '../components/Counter.jsx';
-import { getCollection } from 'astro:content';
-
-const siteEntries = await getCollection('sites');
-const sites = siteEntries.map((e) => ({
-  slug: e.slug,
-  ...e.data,
-}));
+import PartnerProgress from '../components/PartnerProgress.tsx';
+import ThreeCards from '../components/threeCards.astro';
 ---
 
 <Layout title="Care to Share November – Mississippi Food Site Locator" description="Find nearby community food sites and donation drop-offs across Mississippi. Neighbors helping neighbors—no forms, no long lines.">
@@ -29,7 +24,11 @@ const sites = siteEntries.map((e) => ({
     })}
   </script>
   <Hero />
-  <GetInvolved />
+  <PartnerProgress client:only="react" />
+  <ThreeCards />
+  <section id="finder">
+    <LocationFinder client:only="react" />
+  </section>
    <HowItWorks />
      <WhySection />
   <WhatToDonate />

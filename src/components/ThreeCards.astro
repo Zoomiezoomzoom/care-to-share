@@ -1,80 +1,140 @@
-<section class="py-16 md:py-20 bg-[#FFF8F0]">
-  <div class="container">
-    <div class="mb-10 text-center">
-      <h2 class="text-2xl md:text-3xl font-semibold text-[#2D5016]">
-        Which one applies to you?
-      </h2>
-      <p class="mt-2 text-gray-700 max-w-2xl mx-auto text-base">
-        Select the option that best matches how you want to participate!
-      </p>
-    </div>
-    <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-      <!-- Drop Off Card -->
-      <div class="group rounded-xl border-2 border-gray-200 bg-white p-8 flex flex-col gap-6 hover:shadow-lg transition-all duration-300 hover:border-[#C86D4B]/30">
-        <div class="flex items-center gap-3">
-          <div class="w-16 h-16 rounded-full bg-[#C86D4B]/10 flex items-center justify-center group-hover:bg-[#C86D4B]/20 transition-colors">
-            <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow">
-              <svg aria-hidden="true" focusable="false" class="w-6 h-6 text-[#C86D4B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M8 7a4 4 0 0 1 8 0"/>
-                <rect x="4" y="7" width="16" height="13" rx="2" ry="2"/>
-              </svg>
-            </div>
-          </div>
-          <h3 class="text-xl font-bold text-[#2D5016]">Drop Off</h3>
-        </div>
-
-        <p class="text-gray-600 leading-relaxed text-pretty">
-          At your doctor, barbershop, pharmacy, or local business
-        </p>
-
-        <a href="#finder" class="w-full mt-auto inline-flex items-center justify-center rounded-md bg-transparent border-2 border-gray-300 px-4 py-2 text-sm font-medium text-[#2D5016] hover:bg-[#C86D4B] hover:text-white hover:border-[#C86D4B] transition-colors">
-          Find a Drop-Off
-        </a>
+<section id="threecards" class="py-16 md:py-20 bg-[#FFF8F0]">
+  <div class="container max-w-7xl mx-auto">
+    <!-- Three Cards header like LocationFinder, no border container -->
+    <div class="mb-8 md:mb-10">
+      <div class="text-center mb-6">
+        <h2 class="text-2xl md:text-3xl font-semibold text-[#2D5016]">Which one applies to you?</h2>
+        <p class="mt-2 text-gray-700 max-w-2xl mx-auto text-base">Select the option that best matches how you want to participate!</p>
       </div>
-
-      <!-- Pick Up Card -->
-      <div class="group rounded-xl border-2 border-gray-200 bg-white p-8 flex flex-col gap-6 hover:shadow-lg transition-all duration-300 hover:border-[#C86D4B]/30">
-        <div class="flex items-center gap-3">
-          <div class="w-16 h-16 rounded-full bg-[#C86D4B]/10 flex items-center justify-center group-hover:bg-[#C86D4B]/20 transition-colors">
-            <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow">
-              <svg aria-hidden="true" focusable="false" class="w-6 h-6 text-[#C86D4B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z"/>
-                <circle cx="12" cy="11" r="3"/>
-              </svg>
+      <div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <!-- Drop Off Card -->
+        <a
+          href="/?type=drop-off#finder"
+          class="group text-left rounded-xl border-2 border-gray-200 bg-white p-8 flex flex-col gap-6 hover:shadow-lg transition-all duration-300"
+          style="border-color: ; box-shadow: none;"
+          onmouseover="this.style.borderColor = '#FF6B354D';"
+          onmouseout="this.style.borderColor = '';"
+        >
+          <div class="flex items-center gap-3">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center transition-colors"
+              style="background-color: #FF6B351A;">
+              <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow">
+                <svg aria-hidden="true" focusable="false" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8 7a4 4 0 0 1 8 0" />
+                  <rect x="4" y="7" width="16" height="13" rx="2" ry="2" />
+                </svg>
+              </div>
             </div>
+            <h3 class="text-xl font-bold text-[#2D5016]">Drop Off</h3>
           </div>
-          <h3 class="text-xl font-bold text-[#2D5016]">Pick Up</h3>
-        </div>
-
-        <p class="text-gray-600 leading-relaxed text-pretty">
-          Find Care to Share sites near you
-        </p>
-
-        <a href="#finder" class="w-full mt-auto inline-flex items-center justify-center rounded-md bg-transparent border-2 border-gray-300 px-4 py-2 text-sm font-medium text-[#2D5016] hover:bg-[#C86D4B] hover:text-white hover:border-[#C86D4B] transition-colors">
-          Find a Pickup
+          <p class="text-gray-600 leading-relaxed">
+            At your doctor, barbershop, pharmacy, or local business
+          </p>
+          <span
+            class="w-full mt-auto inline-flex items-center justify-center rounded-md bg-transparent border-2 border-gray-300 px-4 py-2 text-sm font-medium text-[#2D5016] transition-colors"
+            style=""
+            onmouseover="this.style.backgroundColor='#FF6B35';this.style.color='#fff';this.style.borderColor='#FF6B35';"
+            onmouseout="this.style.backgroundColor='transparent';this.style.color='#2D5016';this.style.borderColor='#D1D5DB';"
+          >
+            Find a Drop-Off
+          </span>
         </a>
-      </div>
 
-      <!-- Join In Card -->
-      <div class="group rounded-xl border-2 border-[#C86D4B] bg-[#C86D4B]/5 p-8 flex flex-col gap-6 hover:shadow-lg transition-all duration-300 hover:border-[#C86D4B]">
-        <div class="flex items-center gap-3">
-          <div class="w-16 h-16 rounded-full bg-[#C86D4B]/15 flex items-center justify-center group-hover:bg-[#C86D4B]/25 transition-colors">
-            <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow">
-              <svg aria-hidden="true" focusable="false" class="w-6 h-6 text-[#C86D4B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="8" r="4"/>
-                <path d="M4 20a8 8 0 0 1 16 0"/>
-              </svg>
+        <!-- Pick Up Card -->
+        <a
+          href="/?type=pick-up#finder"
+          class="group text-left rounded-xl border-2 border-gray-200 bg-white p-8 flex flex-col gap-6 hover:shadow-lg transition-all duration-300"
+          style="border-color: ; box-shadow: none;"
+          onmouseover="this.style.borderColor = '#FF6B354D';"
+          onmouseout="this.style.borderColor = '';"
+        >
+          <div class="flex items-center gap-3">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center transition-colors"
+              style="background-color: #FF6B351A;">
+              <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow">
+                <svg aria-hidden="true" focusable="false" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10z" />
+                  <circle cx="12" cy="11" r="3" />
+                </svg>
+              </div>
             </div>
+            <h3 class="text-xl font-bold text-[#2D5016]">Pick Up</h3>
           </div>
-          <h3 class="text-xl font-bold text-[#2D5016]">Join In</h3>
-        </div>
+          <p class="text-gray-600 leading-relaxed">
+            Find Care to Share sites near you
+          </p>
+          <span
+            class="w-full mt-auto inline-flex items-center justify-center rounded-md bg-transparent border-2 border-gray-300 px-4 py-2 text-sm font-medium text-[#2D5016] transition-colors"
+            style=""
+            onmouseover="this.style.backgroundColor='#FF6B35';this.style.color='#fff';this.style.borderColor='#FF6B35';"
+            onmouseout="this.style.backgroundColor='transparent';this.style.color='#2D5016';this.style.borderColor='#D1D5DB';"
+          >
+            Find a Pickup
+          </span>
+        </a>
 
-        <p class="text-gray-700 leading-relaxed text-pretty">
-          Register your business as a collection site
-        </p>
+        <!-- Join In Card -->
+        <a
+          href="/become-a-partner"
+          class="group rounded-xl border-2 bg-[#FF6B350D] p-8 flex flex-col gap-6 hover:shadow-lg transition-all duration-300"
+          style="border-color: #FF6B35;"
+          onmouseover="this.style.borderColor = '#FF6B35';"
+          onmouseout="this.style.borderColor = '#FF6B35';"
+        >
+          <div class="flex items-center gap-3">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center transition-colors"
+              style="background-color: #FF6B3526;">
+              <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow">
+                <svg aria-hidden="true" focusable="false" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 20a8 8 0 0 1 16 0" />
+                </svg>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-[#2D5016]">Join In</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed">
+            Register your business as a collection site
+          </p>
+          <span
+            class="w-full mt-auto inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium shadow-md transition-all"
+            style="background-color: #FF6B35; color: #fff;"
+            onmouseover="this.style.backgroundColor='#DE621C';"
+            onmouseout="this.style.backgroundColor='#FF6B35';"
+          >
+            Become a Collection Site
+          </span>
+        </a>
 
-        <a href="/become-a-partner" class="w-full mt-auto inline-flex items-center justify-center rounded-md bg-[#C86D4B] text-white px-4 py-2 text-sm font-medium shadow-md hover:bg-[#B55D3B] hover:shadow-lg transition-all">
-          Become a Collection Site
+        <!-- Donate Money Card -->
+        <a
+          href="/donate"
+          class="group rounded-xl border-2 border-[#0071DC] bg-[#0071DC08] p-8 flex flex-col gap-6 hover:shadow-lg transition-all duration-300"
+          style="border-color: #0071DC;"
+          onmouseover="this.style.borderColor = '#005BBD';"
+          onmouseout="this.style.borderColor = '#0071DC';"
+        >
+          <div class="flex items-center gap-3">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center transition-colors"
+              style="background-color: #0071DC22;">
+              <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow">
+                <!-- Make the $ smaller and thinner by reducing text size and using font-light -->
+                <span class="text-2xl font-light text-[#0071DC] leading-none" aria-hidden="true" style="line-height: 32px;">$</span>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-[#2D5016]">Donate Money</h3>
+          </div>
+          <p class="text-blue-900 leading-relaxed">
+            Want to help but prefer to give directly? Donate money or buy food online.
+          </p>
+          <span
+            class="w-full mt-auto inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium shadow-md transition-all"
+            style="background-color: #0071DC; color: #fff;"
+            onmouseover="this.style.backgroundColor='#005BBD';"
+            onmouseout="this.style.backgroundColor='#0071DC';"
+          >
+            Donate Money
+          </span>
         </a>
       </div>
     </div>

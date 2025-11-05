@@ -1,0 +1,152 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import MapView from '../../components/MapView.tsx';
+import { supabaseAdmin } from '../../lib/supabase';
+
+export const prerender = false;
+
+const { id } = Astro.params;
+
+const { data, error } = await supabaseAdmin
+  .from('partner_registrations')
+  .select([
+    'id',
+    'org',
+    'address',
+    'city',
+    'zip',
+    'phone',
+    'open_hours',
+    'business_type',
+    'offer_dropoff',
+    'offer_pickup',
+    'offer_both',
+    'additional_info',
+  ].join(', '))
+  .eq('id', id)
+  .single();
+
+if (error || !data) {
+  throw new Error('Site not found');
+}
+
+function computeType(r: any): 'drop-off' | 'pick-up' | 'both' {
+  const drop = !!r.offer_dropoff;
+  const pick = !!r.offer_pickup;
+  const both = !!r.offer_both || (drop && pick);
+  if (both) return 'both';
+  if (drop) return 'drop-off';
+  return 'pick-up';
+}
+
+const type = computeType(data);
+const typeBadge = type.toUpperCase().replace('-', ' ');
+const typeDesc = type === 'both' ? 'Drop off and pick up food donations' : type === 'drop-off' ? 'Drop off food donations' : 'Pick up food donations';
+
+const site = {
+  slug: data.id,
+  name: data.org,
+  address: data.address,
+  city: data.city,
+  zip: data.zip,
+  phone: data.phone as string | null,
+  hours: data.open_hours as string | null,
+  type,
+  category: data.business_type as string | null,
+};
+---
+
+<Layout title={`${site.name} – Care to Share Site`} description={`${site.name} in ${site.city}. ${typeDesc}.`}>
+  <section class="bg-white">
+    <div class="container max-w-4xl mx-auto py-8 md:py-12">
+      <a href="/" class="inline-flex items-center text-sm text-gray-600 hover:text-gray-900">← Back to all sites</a>
+
+      <div class="mt-4 rounded-2xl border border-gray-200 bg-white shadow-sm p-6 md:p-8">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <h1 class="text-2xl md:text-3xl font-bold text-[#2D5016]">{site.name}</h1>
+            <p class="mt-2 text-gray-700">{typeDesc}</p>
+          </div>
+          <span class="px-3 py-1 bg-[#C86D4B] text-white text-xs font-semibold rounded-full h-fit">{typeBadge}</span>
+        </div>
+
+        <div class="mt-6 grid md:grid-cols-2 gap-6">
+          <div class="space-y-6">
+            <section>
+              <h2 class="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                <span>📍</span> Address
+              </h2>
+              <div class="mt-2 text-gray-700">
+                <div>{site.address}</div>
+                <div>{site.city}{site.zip ? `, ${site.zip}` : ''}</div>
+              </div>
+              <div class="mt-3">
+                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.address} ${site.city} ${site.zip ?? ''}`)}`} target="_blank" class="text-[#C86D4B] font-medium hover:underline">Get Directions →</a>
+              </div>
+            </section>
+
+            {site.phone && (
+              <section>
+                <h2 class="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                  <span>📞</span> Phone
+                </h2>
+                <div class="mt-2 text-gray-700">{site.phone}</div>
+                <div class="mt-3">
+                  <a href={`tel:${(site.phone as string).replace(/[^\d]/g, '')}`} class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-[#2D5016] text-white font-semibold hover:bg-[#1F3810]">Call Now</a>
+                </div>
+              </section>
+            )}
+
+            {site.hours && (
+              <section>
+                <h2 class="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                  <span>🕐</span> Hours
+                </h2>
+                <div class="mt-2 text-gray-700 whitespace-pre-line">{site.hours}</div>
+              </section>
+            )}
+
+            <section>
+              <h2 class="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                <span>ℹ️</span> What to Bring
+              </h2>
+              <ul class="mt-2 list-disc list-inside text-gray-700">
+                <li>Non-perishable food items</li>
+                <li>Sealed and labeled foods</li>
+                <li>Items with expiration date after next month</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2 class="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                <span>💬</span> Special Instructions
+              </h2>
+              <p class="mt-2 text-gray-700 whitespace-pre-line">{data.additional_info || 'No special instructions provided.'}</p>
+            </section>
+          </div>
+
+          <div class="space-y-4">
+            <div class="hidden md:block">
+              <MapView client:only="react" markers={[{ name: site.name, address: site.address, city: site.city, zip: site.zip }]} className="h-80 w-full rounded-xl border border-gray-200" />
+            </div>
+            <div class="md:hidden">
+              <details class="rounded-lg border border-gray-200">
+                <summary class="px-4 py-3 cursor-pointer select-none">Show Map ▼</summary>
+                <div class="px-2 pb-3">
+                  <MapView client:only="react" markers={[{ name: site.name, address: site.address, city: site.city, zip: site.zip }]} className="h-80 w-full rounded-lg border border-gray-200" />
+                </div>
+              </details>
+            </div>
+
+            <div class="flex gap-3">
+              <a href={`https://maps.apple.com/?q=${encodeURIComponent(`${site.name} ${site.address} ${site.city} ${site.zip ?? ''}`)}`} target="_blank" class="flex-1 text-center px-4 py-3 rounded-lg bg-[#C86D4B] text-white font-semibold hover:bg-[#B55D3B]">Open in Apple Maps</a>
+              <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.name} ${site.address} ${site.city} ${site.zip ?? ''}`)}`} target="_blank" class="flex-1 text-center px-4 py-3 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:border-[#C86D4B] hover:text-[#C86D4B]">Open in Google Maps</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+
