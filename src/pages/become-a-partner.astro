@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+const googlePlacesKey = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
 ---
 
 <Layout title="Become a Partner – Care to Share" description="Register your business as a Care to Share donation or pickup site.">
@@ -54,32 +55,7 @@ import Layout from '../layouts/Layout.astro';
               </label>
               <div class="grid gap-3 sm:grid-cols-2 sm:col-span-2 md:col-span-1">
                 <label class="text-sm font-medium text-[#2D5016] flex flex-col">City *
-                  <div>
-                    <select id="city-select" class="mt-1 w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]">
-                      <option value="" disabled selected>Select City</option>
-                      <option>Jackson</option>
-                      <option>Madison</option>
-                      <option>Ridgeland</option>
-                      <option>Clinton</option>
-                      <option>Pearl</option>
-                      <option>Flowood</option>
-                      <option>Brandon</option>
-                      <option>Canton</option>
-                      <option>Terry</option>
-                      <option>McComb</option>
-                      <option>Brookhaven</option>
-                      <option>Vicksburg</option>
-                      <option>Yazoo City</option>
-                      <option>Hattiesburg</option>
-                      <option>Oxford</option>
-                      <option>Tupelo</option>
-                      <option>Biloxi</option>
-                      <option>Gulfport</option>
-                      <option value="__other__">Other (type your city)</option>
-                    </select>
-                    <input id="city-other" placeholder="Type your city" class="mt-2 w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B] hidden" />
-                    <input type="hidden" name="city" id="city-hidden" />
-                  </div>
+                  <input required name="city" placeholder="Jackson" class="mt-1 w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
                 </label>
                 <label class="text-sm font-medium text-[#2D5016] flex flex-col">ZIP Code *
                   <input required name="zip" placeholder="39201" class="mt-1 w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
@@ -174,10 +150,6 @@ import Layout from '../layouts/Layout.astro';
 
             <fieldset class="grid gap-2 sm:gap-3">
               <legend class="text-sm font-medium text-[#2D5016] mb-2 md:mb-2.5">When do you plan to participate?</legend>
-              <label class="inline-flex items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
-                <input type="radio" name="duration" value="starting_november_ongoing" class="h-4 w-4" />
-                <span>Starting in November (ongoing)</span>
-              </label>
               <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
                 <label class="inline-flex items-center gap-2 sm:gap-3">
                   <input type="radio" name="duration" value="specific_dates" class="h-4 w-4" />
@@ -301,33 +273,42 @@ import Layout from '../layouts/Layout.astro';
         render();
       });
       render();
-
-      // City select -> hidden city + optional other input
-      const citySelect = document.getElementById('city-select');
-      const cityOther = document.getElementById('city-other');
-      const cityHidden = document.getElementById('city-hidden');
-      function updateCity() {
-        if (!(citySelect instanceof HTMLSelectElement) || !cityHidden) return;
-        const val = citySelect.value;
-        if (val === '__other__') {
-          if (cityOther instanceof HTMLInputElement) {
-            cityOther.classList.remove('hidden');
-            cityOther.setAttribute('required', 'true');
-            cityHidden.value = cityOther.value.trim();
-            cityOther.focus();
+      
+      // Google Places Autocomplete for address -> autofill city and zip
+      // This function is called by the Google Maps script via the "callback" param
+      // It sets up autocomplete on the address input and fills city/zip when a place is selected
+      // @ts-ignore
+      window.initPlaces = function initPlaces() {
+        const addressInput = document.querySelector('input[name="address"]');
+        const cityInput = document.querySelector('input[name="city"]');
+        const zipInput = document.querySelector('input[name="zip"]');
+        if (!addressInput || !(window as any).google?.maps?.places?.Autocomplete) return;
+        // @ts-ignore
+        const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+          fields: ['address_components', 'formatted_address'],
+          componentRestrictions: { country: ['us'] },
+          types: ['address'],
+        });
+        autocomplete.addListener('place_changed', () => {
+          const place = autocomplete.getPlace();
+          if (!place || !place.address_components) return;
+          let city = '';
+          let postalCode = '';
+          for (const component of place.address_components) {
+            const types = component.types || [];
+            if (types.includes('locality') && !city) city = component.long_name;
+            else if (types.includes('postal_town') && !city) city = component.long_name;
+            else if (types.includes('administrative_area_level_3') && !city) city = component.long_name;
+            if (types.includes('postal_code') && !postalCode) postalCode = component.long_name;
           }
-        } else {
-          if (cityOther instanceof HTMLInputElement) {
-            cityOther.classList.add('hidden');
-            cityOther.removeAttribute('required');
-          }
-          cityHidden.value = val;
-        }
-      }
-      if (citySelect) citySelect.addEventListener('change', updateCity);
-      if (cityOther) cityOther.addEventListener('input', updateCity);
-      // Initialize on load
-      updateCity();
+          if (cityInput && city) cityInput.value = city;
+          if (zipInput && postalCode) zipInput.value = postalCode;
+          if (addressInput && place.formatted_address) addressInput.value = place.formatted_address;
+        });
+      };
     })();
   </script>
+  {googlePlacesKey && (
+    <script src={`https://maps.googleapis.com/maps/api/js?key=${googlePlacesKey}&libraries=places&callback=initPlaces`} async defer></script>
+  )}
 </Layout>
