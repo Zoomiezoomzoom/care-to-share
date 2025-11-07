@@ -1,9 +1,36 @@
 ---
 import Layout from '../layouts/Layout.astro';
 const googlePlacesKey = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
+const currentUrl = Astro.url.href;
+const origin = Astro.url.origin;
 ---
 
-<Layout title="Become a Partner – Care to Share" description="Register your business as a Care to Share donation or pickup site.">
+<Layout title="Become a Partner – Share to Care" description="Register your business as a Share to Care donation or pickup site.">
+  <Fragment slot="head">
+    <link rel="canonical" href={currentUrl} />
+    <meta property="og:url" content={currentUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="robots" content="index,follow" />
+    <link rel="preconnect" href="https://maps.googleapis.com" />
+    <link rel="dns-prefetch" href="https://maps.googleapis.com" />
+    <link rel="preconnect" href="https://maps.gstatic.com" crossorigin="" />
+    <link rel="dns-prefetch" href="https://maps.gstatic.com" />
+    <script type="application/ld+json">{JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": `${origin}#org`,
+      "name": "Share to Care",
+      "url": origin
+    })}</script>
+    <script type="application/ld+json">{JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "url": currentUrl,
+      "name": "Become a Partner – Share to Care",
+      "description": "Register your business as a Share to Care donation or pickup site.",
+      "isPartOf": { "@id": `${origin}#org` }
+    })}</script>
+  </Fragment>
   <section class="bg-[#F6F8FB] border-b">
     <div class="container py-8 sm:py-10 md:py-14">
       <h1 class="text-2xl sm:text-3xl md:text-4xl">Register Your Business as a Collection Site</h1>
@@ -15,7 +42,7 @@ const googlePlacesKey = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
     </div>
   </section>
   <section class="py-6 sm:py-8">
-    <div class="container">
+    <div class="container"> 
       <div class="w-full max-w-lg sm:max-w-2xl md:max-w-4xl mx-auto rounded-2xl border border-gray-200 bg-white shadow-lg p-3 sm:p-5 md:p-10">
         <form name="partner" id="partner-form" method="POST" action="/api/partner" enctype="application/x-www-form-urlencoded" class="grid gap-6 sm:gap-8">
           <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -225,7 +252,7 @@ const googlePlacesKey = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
             </div>
             <div class="flex flex-col gap-3 sm:gap-4 bg-[#F6F8FB] rounded-lg p-4 sm:p-6">
               <p class="text-sm text-gray-600">By submitting this form, I confirm that:</p>
-              <label class="inline-flex items-start gap-2 text-sm"><input required type="checkbox" name="ack_participation" /> <span>My business is willing to participate in Care to Share</span></label>
+              <label class="inline-flex items-start gap-2 text-sm"><input required type="checkbox" name="ack_participation" /> <span>My business is willing to participate in Share to Care</span></label>
               <label class="inline-flex items-start gap-2 text-sm"><input required type="checkbox" name="ack_followup" /> <span>I understand I'll receive follow-up information about signage, materials, and coordination</span></label>
             </div>
             <div class="pt-4 border-t flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
