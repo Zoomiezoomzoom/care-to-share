@@ -46,7 +46,7 @@ const origin = Astro.url.origin;
       <div class="w-full max-w-lg sm:max-w-2xl md:max-w-4xl mx-auto rounded-2xl border border-gray-200 bg-white shadow-lg p-3 sm:p-5 md:p-10">
         <form name="partner" id="partner-form" method="POST" action="/api/partner" enctype="application/x-www-form-urlencoded" class="grid gap-6 sm:gap-8">
           <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <div class="text-sm text-gray-600" data-step-indicator>Step 1 of 5</div>
+            <div class="text-sm text-gray-600" data-step-indicator>Step 1 of 4</div>
             <div class="text-xs text-[#2D5016] font-medium">
               Most fields optional • Average completion ~2 minutes
             </div>
@@ -114,7 +114,7 @@ const origin = Astro.url.origin;
             </div>
             <p class="text-sm text-gray-600">What type of business are you? <span class="text-red-600">*</span></p>
             <div class="grid gap-2 sm:gap-3 sm:grid-cols-2 md:grid-cols-3 text-sm">
-              {['Medical Clinic','Barbershop','Beauty Shop','Law Office','Pharmacy','Retail Store','Community Center'].map((label) => (
+              {['Medical Clinic','Barbershop','Beauty Shop','Law Office','Pharmacy','Retail Store','Community Center', 'Church'].map((label) => (
                 <label class="flex items-center gap-3 border border-gray-200 rounded-xl h-12 w-full px-4 md:px-5 hover:bg-[#FFF8F0] transition-colors">
                   <input type="radio" name="business_type" value={label} /> {label}
                 </label>
@@ -148,59 +148,121 @@ const origin = Astro.url.origin;
               <h2 class="text-lg sm:text-xl font-semibold">Participation Details</h2>
             </div>
 
-            <fieldset class="grid gap-2 sm:gap-3">
-              <legend class="text-sm font-medium text-[#2D5016] mb-2 md:mb-2.5">What will you offer? <span class="text-red-600">*</span> <span class="text-gray-500 font-normal">(check all that apply)</span></legend>
-              <label class="inline-flex items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
-                <input type="checkbox" name="offer_dropoff" class="h-4 w-4" />
-                <span>Accept donations (drop-off site)</span>
-              </label>
-              <label class="inline-flex items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
-                <input type="checkbox" name="offer_pickup" class="h-4 w-4" />
-                <span>Allow people to pick up food</span>
-              </label>
-              <label class="inline-flex items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
-                <input type="checkbox" name="offer_both" class="h-4 w-4" />
-                <span>Both</span>
-              </label>
+            <fieldset class="grid gap-2 sm:gap-3" data-offers>
+              <legend class="text-sm font-medium text-[#2D5016] mb-2 md:mb-2.5">How would you like to participate? <span class="text-red-600">*</span> <span class="text-gray-500 font-normal">(pick one)</span></legend>
+              <div class="grid gap-2 sm:gap-3">
+                <button type="button" data-offer-option="dropoff" class="w-full text-left border border-gray-200 rounded-xl px-3 sm:px-4 py-3 hover:bg-[#FFF8F0] transition-colors flex items-start gap-3">
+                  <div class="mt-0.5 w-4 h-4 rounded-full border-2 border-gray-300 flex items-center justify-center" data-radio></div>
+                  <div class="flex-1">
+                    <div class="text-sm font-semibold text-gray-900">Accept donations (drop-off site)</div>
+                    <p class="text-xs text-gray-600">People drop off food at your location.</p>
+                  </div>
+                </button>
+                <button type="button" data-offer-option="pickup" class="w-full text-left border border-gray-200 rounded-xl px-3 sm:px-4 py-3 hover:bg-[#FFF8F0] transition-colors flex items-start gap-3">
+                  <div class="mt-0.5 w-4 h-4 rounded-full border-2 border-gray-300 flex items-center justify-center" data-radio></div>
+                  <div class="flex-1">
+                    <div class="text-sm font-semibold text-gray-900">Hand out food (pick-up site)</div>
+                    <div class="text-xs text-gray-600">You hand out food during the hours you set.</div>
+                  </div>
+                </button>
+                <button type="button" data-offer-option="both" class="w-full text-left border border-gray-200 rounded-xl px-3 sm:px-4 py-3 hover:bg-[#FFF8F0] transition-colors flex items-start gap-3">
+                  <div class="mt-0.5 w-4 h-4 rounded-full border-2 border-gray-300 flex items-center justify-center" data-radio></div>
+                  <div class="flex-1">
+                    <div class="text-sm font-semibold text-gray-900">Both</div>
+                    <div class="text-xs text-gray-600">You accept donations and also let people pick up food.</div>
+                  </div>
+                </button>
+              </div>
+              <!-- Hidden checkboxes that the backend expects -->
+              <input type="checkbox" name="offer_dropoff" hidden />
+              <input type="checkbox" name="offer_pickup" hidden />
+              <input type="checkbox" name="offer_both" hidden />
             </fieldset>
 
             <div class="grid gap-2">
               <label class="text-sm font-medium text-[#2D5016] flex items-center gap-2 mb-2 md:mb-2.5">
-                <svg aria-hidden="true" class="h-4 w-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2"/>
-                  <path d="M16 2v4M8 2v4M3 10h18"/>
-                </svg>
+               
                 <span>When will your site be open? <span class="text-red-600">*</span></span>
               </label>
-              <input required name="open_hours" placeholder='e.g., "Mon–Fri 9am–5pm" or "Weekdays only"' class="w-full h-11 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
+              <div data-pickup class="grid gap-3">
+                <div class="space-y-2">
+                  <button type="button" data-pickup-option="windows" class="w-full text-left rounded-xl border border-gray-200 px-3 sm:px-4 py-3 hover:bg-[#FFF8F0] transition-colors bg-white flex items-start gap-3">
+                    <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex items-center justify-center" data-radio>
+                      <!-- filled dot inserted when active -->
+                    </div>
+                    <div class="flex-1">
+                      <div class="font-semibold text-gray-900">Specific pickup windows</div>
+                      <div class="text-sm text-gray-500">Set specific days and times (e.g., Tuesdays 4–6pm)</div>
+                    </div>
+                  </button>
+                  <button type="button" data-pickup-option="business" class="w-full text-left rounded-xl border border-gray-200 px-3 sm:px-4 py-3 hover:bg-[#FFF8F0] transition-colors bg-white flex items-start gap-3">
+                    <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex items-center justify-center" data-radio></div>
+                    <div class="flex-1">
+                      <div class="font-semibold text-gray-900">During business hours</div>
+                      <div class="text-sm text-gray-500">Anytime your business is open</div>
+                    </div>
+                  </button>
+                  <button type="button" data-pickup-option="anytime" class="w-full text-left rounded-xl border border-gray-200 px-3 sm:px-4 py-3 hover:bg-[#FFF8F0] transition-colors bg-white flex items-start gap-3">
+                    <div class="w-4 h-4 rounded-full border-2 border-gray-300 flex items-center justify-center" data-radio></div>
+                    <div class="flex-1">
+                      <div class="font-semibold text-gray-900">Anytime, 24/7</div>
+                      <div class="text-sm text-gray-500">Outside location, always accessible</div>
+                    </div>
+                  </button>
+                </div>
+                <!-- Windows configuration -->
+                <div data-pickup-windows class="hidden mt-1 p-3 sm:p-4 bg-gray-50 rounded-xl border border-gray-200">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-2">Set your pickup windows</h3>
+                  <div class="grid gap-2" data-windows-list></div>
+                  <button type="button" data-add-window class="w-full mt-2 py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-[#C86D4B] hover:text-[#C86D4B] text-sm font-medium">+ Add another window</button>
+                </div>
+                <!-- Business hours configuration -->
+                <div data-pickup-business class="hidden mt-1 bg-gray-50 rounded-2xl border border-gray-200 p-3 sm:p-4">
+                  <h3 class="text-sm sm:text-lg font-semibold text-gray-900 mb-2">Which days are you open?</h3>
+                  <div class="flex flex-wrap gap-1.5 sm:gap-2 mb-3" data-business-days>
+                    {[
+                      ["monday","Monday"],
+                      ["tuesday","Tuesday"],
+                      ["wednesday","Wednesday"],
+                      ["thursday","Thursday"],
+                      ["friday","Friday"],
+                      ["saturday","Saturday"],
+                      ["sunday","Sunday"],
+                    ].map(([value,label]) => (
+                      <button type="button" data-day={value} class="px-3 py-1 rounded-md bg-white border-2 border-gray-300 text-xs sm:text-sm text-gray-800 font-medium hover:border-[#C86D4B]/50 transition-colors">{label}</button>
+                    ))}
+                  </div>
+                  <div class="pt-3 border-t border-gray-200">
+                    <p class="text-sm text-gray-700 mb-2">What are your typical business hours?</p>
+                    <div class="flex items-center gap-2 sm:gap-3">
+                      <div class="flex items-center gap-2 bg-white border border-gray-300 rounded-xl h-10 sm:h-11 px-3 flex-1 min-w-[6.5rem] shadow-sm">
+                        <svg class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
+                          <path d="M12 6v6l4 2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        <input type="time" value="09:00" data-business-start class="w-full h-full min-w-0 border-0 focus:outline-none focus:ring-0 text-xs sm:text-base text-gray-900" />
+                      </div>
+                      <span class="text-gray-500 font-medium text-center sm:text-left whitespace-nowrap">to</span>
+                      <div class="flex items-center gap-2 bg-white border border-gray-300 rounded-xl h-10 sm:h-11 px-3 flex-1 min-w-[6.5rem] shadow-sm">
+                        <svg class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
+                          <path d="M12 6v6l4 2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        <input type="time" value="17:00" data-business-end class="w-full h-full min-w-0 border-0 focus:outline-none focus:ring-0 text-xs sm:text-base text-gray-900" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Anytime confirmation -->
+                <div data-pickup-anytime class="hidden mt-1 p-3 bg-green-50 rounded-xl border border-green-200 text-sm text-gray-800">
+                  Your location will be marked as always accessible for pickups.
+                </div>
+              </div>
+              <input type="hidden" required name="open_hours" />
+              <p class="text-xs text-gray-500">Choose at least one day and add one or more time slots for that day.</p>
             </div>
 
-            <fieldset class="grid gap-2 sm:gap-3">
-              <legend class="text-sm font-medium text-[#2D5016] mb-2 md:mb-2.5">When do you plan to participate?</legend>
-              <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
-                <label class="inline-flex items-center gap-2 sm:gap-3">
-                  <input type="radio" name="duration" value="specific_dates" class="h-4 w-4" />
-                  <span>Specific dates</span>
-                </label>
-                <input name="duration_dates" placeholder="e.g., Nov 10–20 or Dec 1–15" class="h-10 w-full sm:flex-1 min-w-0 rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]" />
-              </div>
-              <label class="inline-flex items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
-                <input type="radio" name="duration" value="flexible" class="h-4 w-4" />
-                <span>Flexible / To be determined</span>
-              </label>
-            </fieldset>
-
-            <fieldset class="grid gap-2 sm:gap-3">
-              <legend class="text-sm font-medium text-[#2D5016] mb-2 md:mb-2.5">Do you have a safe space to store donations?</legend>
-              <label class="inline-flex items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
-                <input type="radio" name="storage_space" value="yes" class="h-4 w-4" />
-                <span>Yes</span>
-              </label>
-              <label class="inline-flex items-center gap-2 sm:gap-3 border border-gray-200 rounded-xl px-3 sm:px-4 py-3 text-sm hover:bg-[#FFF8F0] transition-colors">
-                <input type="radio" name="storage_space" value="not_sure" class="h-4 w-4" />
-                <span>Not sure (need guidance)</span>
-              </label>
-            </fieldset>
+            <!-- Removed: participation timing and storage questions per request -->
             <div class="pt-4 border-t flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
               <button type="button" data-prev class="text-sm text-gray-700 hover:underline w-full sm:w-auto text-center">Back</button>
               <button type="button" data-next class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#B55D3B] transition-colors w-full sm:w-auto">
@@ -213,34 +275,10 @@ const origin = Astro.url.origin;
             </div>
           </section>
 
-          <!-- ADDITIONAL INFORMATION -->
-          <section class="grid gap-5 sm:gap-6 hidden" data-step="4">
-            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 pb-2 border-b">
-              <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-[#C86D4B]/10 flex items-center justify-center">
-                <svg aria-hidden="true" class="w-5 h-5 text-[#C86D4B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>
-                </svg>
-              </div>
-              <h2 class="text-lg sm:text-xl font-semibold">Additional Information</h2>
-              <span class="text-sm text-gray-500">(Optional)</span>
-            </div>
-            <label class="text-sm font-medium text-[#2D5016] flex flex-col">Questions, concerns, or anything else we should know?
-              <textarea name="additional_info" class="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm min-h-24 sm:min-h-32 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B]"></textarea>
-            </label>
-            <div class="pt-4 border-t flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <button type="button" data-prev class="text-sm text-gray-700 hover:underline w-full sm:w-auto text-center">Back</button>
-              <button type="button" data-next class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-sm hover:bg-[#B55D3B] transition-colors w-full sm:w-auto">
-                <span>Continue</span>
-                <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M5 12h12"/>
-                  <path d="M13 6l6 6-6 6"/>
-                </svg>
-              </button>
-            </div>
-          </section>
+          <!-- Removed: Additional Information section per request -->
 
           <!-- ACKNOWLEDGEMENTS -->
-          <section class="grid gap-5 sm:gap-6 hidden" data-step="5">
+          <section class="grid gap-5 sm:gap-6 hidden" data-step="4">
             <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 pb-2 border-b">
               <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-[#C86D4B]/10 flex items-center justify-center">
                 <svg aria-hidden="true" class="w-5 h-5 text-[#C86D4B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -250,11 +288,14 @@ const origin = Astro.url.origin;
               </div>
               <h2 class="text-lg sm:text-xl font-semibold">Acknowledgements</h2>
             </div>
-            <div class="flex flex-col gap-3 sm:gap-4 bg-[#F6F8FB] rounded-lg p-4 sm:p-6">
-              <p class="text-sm text-gray-600">By submitting this form, I confirm that:</p>
-              <label class="inline-flex items-start gap-2 text-sm"><input required type="checkbox" name="ack_participation" /> <span>My business is willing to participate in Share to Care</span></label>
-              <label class="inline-flex items-start gap-2 text-sm"><input required type="checkbox" name="ack_followup" /> <span>I understand I'll receive follow-up information about signage, materials, and coordination</span></label>
+            <!-- Review Summary -->
+            <div class="flex flex-col gap-4 bg-white border border-gray-200 rounded-xl p-4 sm:p-6 shadow-sm">
+              <h3 class="text-base font-semibold text-[#2D5016]">Review your information</h3>
+              <div class="grid gap-3 text-sm" data-review>
+                <!-- Filled by script -->
+              </div>
             </div>
+            
             <div class="pt-4 border-t flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <button type="button" data-prev class="text-sm text-gray-700 hover:underline w-full sm:w-auto text-center">Back</button>
               <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-md bg-[#C86D4B] text-white px-5 py-3 text-sm font-medium shadow-lg hover:shadow-xl hover:bg-[#B55D3B] transition-all w-full sm:w-auto">
@@ -288,6 +329,8 @@ const origin = Astro.url.origin;
         if (indicator) indicator.textContent = `Step ${current} of ${total}`;
         const card = form.closest('.rounded-2xl');
         if (card) card.scrollIntoView({ behavior: window.innerWidth < 640 ? 'auto' : 'smooth', block: 'start' });
+        // Update review summary on final step
+        if (current === total) updateReviewSummary();
       }
       form.addEventListener('click', (e) => {
         const target = e.target;
@@ -300,6 +343,321 @@ const origin = Astro.url.origin;
         render();
       });
       render();
+      
+      // Offers selector (simple cards -> hidden checkboxes for backend)
+      const offersEl = form.querySelector('[data-offers]');
+      if (offersEl) {
+        const btns = Array.from(offersEl.querySelectorAll('[data-offer-option]'));
+        const hiddenDropoff = offersEl.querySelector('input[name="offer_dropoff"]') as HTMLInputElement | null;
+        const hiddenPickup = offersEl.querySelector('input[name="offer_pickup"]') as HTMLInputElement | null;
+        const hiddenBoth = offersEl.querySelector('input[name="offer_both"]') as HTMLInputElement | null;
+        const setSelected = (selected: string) => {
+          btns.forEach((b) => {
+            const on = b.getAttribute('data-offer-option') === selected;
+            const radio = b.querySelector('[data-radio]');
+            b.classList.toggle('border-[#C86D4B]', on);
+            b.classList.toggle('bg-[#FFF8F0]', on);
+            if (radio) {
+              radio.classList.toggle('border-[#C86D4B]', on);
+              radio.classList.toggle('border-gray-300', !on);
+              (radio as HTMLElement).innerHTML = on ? '<div class="w-2.5 h-2.5 rounded-full bg-[#C86D4B]"></div>' : '';
+            }
+          });
+          if (hiddenDropoff) hiddenDropoff.checked = selected === 'dropoff';
+          if (hiddenPickup) hiddenPickup.checked = selected === 'pickup';
+          if (hiddenBoth) hiddenBoth.checked = selected === 'both';
+          updateReviewSummary();
+        };
+        // Initialize from any pre-checked state (e.g., going back)
+        const initial =
+          (hiddenBoth?.checked && 'both') ||
+          (hiddenDropoff?.checked && 'dropoff') ||
+          (hiddenPickup?.checked && 'pickup') ||
+          '';
+        if (initial) setSelected(initial);
+        btns.forEach((b) => {
+          b.addEventListener('click', (e) => {
+            e.preventDefault();
+            const val = b.getAttribute('data-offer-option') || '';
+            setSelected(val);
+          });
+        });
+      }
+      
+      // Pickup-style scheduling UI -> writes per-day JSON to hidden input[name="open_hours"]
+      const pickupEl = form.querySelector('[data-pickup]');
+      if (pickupEl) {
+        const hiddenOpenHours = form.querySelector('input[name="open_hours"][type="hidden"]');
+        const optionButtons = Array.from(pickupEl.querySelectorAll('[data-pickup-option]'));
+        const windowsSection = pickupEl.querySelector('[data-pickup-windows]');
+        const windowsList = pickupEl.querySelector('[data-windows-list]');
+        const addWindowBtn = pickupEl.querySelector('[data-add-window]');
+        const businessSection = pickupEl.querySelector('[data-pickup-business]');
+        const businessDays = Array.from(pickupEl.querySelectorAll('[data-business-days] [data-day]'));
+        const businessStartInput = pickupEl.querySelector('[data-business-start]');
+        const businessEndInput = pickupEl.querySelector('[data-business-end]');
+        const anytimeSection = pickupEl.querySelector('[data-pickup-anytime]');
+        const days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+
+        let pickupType = '';
+        let windows = [{ day: 'tuesday', start: '16:00', end: '18:00' }];
+        let selectedDays = [];
+
+        const setSelectedStyle = (btn, on) => {
+          const radio = btn.querySelector('[data-radio]');
+          btn.classList.toggle('border-[#C86D4B]', on);
+          btn.classList.toggle('bg-[#FFF8F0]', on);
+          if (radio) {
+            radio.classList.toggle('border-[#C86D4B]', on);
+            radio.classList.toggle('border-gray-300', !on);
+            radio.innerHTML = on ? '<div class="w-3 h-3 rounded-full bg-[#C86D4B]"></div>' : '';
+          }
+        };
+        const computeSchedule = () => {
+          const schedule = {};
+          days.forEach(d => { schedule[d] = []; });
+          if (pickupType === 'windows') {
+            windows.forEach((w) => {
+              if (w.start && w.end && w.start < w.end && days.includes(w.day)) {
+                schedule[w.day].push({ open: w.start, close: w.end });
+              }
+            });
+          } else if (pickupType === 'business') {
+            const start = businessStartInput?.value || '09:00';
+            const end = businessEndInput?.value || '17:00';
+            if (start < end) {
+              selectedDays.forEach((d) => {
+                if (days.includes(d)) schedule[d].push({ open: start, close: end });
+              });
+            }
+          } else if (pickupType === 'anytime') {
+            days.forEach((d) => schedule[d].push({ open: '00:00', close: '23:59' }));
+          }
+          const hasAny = Object.values(schedule).some((arr) => arr.length > 0);
+          if (hiddenOpenHours) hiddenOpenHours.value = hasAny ? JSON.stringify(schedule) : '';
+          updateReviewSummary();
+        };
+        const refreshOptionStyles = () => {
+          optionButtons.forEach((b) => setSelectedStyle(b, b.getAttribute('data-pickup-option') === pickupType));
+        };
+        const showSections = () => {
+          if (windowsSection) windowsSection.classList.toggle('hidden', pickupType !== 'windows');
+          if (businessSection) businessSection.classList.toggle('hidden', pickupType !== 'business');
+          if (anytimeSection) anytimeSection.classList.toggle('hidden', pickupType !== 'anytime');
+        };
+        const renderWindowsList = () => {
+          if (!windowsList) return;
+          windowsList.innerHTML = '';
+          windows.forEach((w, index) => {
+            const row = document.createElement('div');
+            row.className = 'bg-white p-3 rounded-xl border border-gray-200';
+            row.innerHTML = `
+              <div class="flex flex-col gap-2">
+                <select data-window-day class="h-10 px-3 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B] w-full sm:w-48">
+                  ${days.map(d => `<option value="${d}" ${w.day === d ? 'selected' : ''}>${d.charAt(0).toUpperCase()+d.slice(1)}</option>`).join('')}
+                </select>
+                <div class="flex items-center gap-2 sm:gap-3">
+                  <input type="time" value="${w.start}" data-window-start class="flex-1 h-10 px-3 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B] w-full" />
+                  <span class="text-gray-500 text-sm font-medium text-center sm:text-left whitespace-nowrap">to</span>
+                  <input type="time" value="${w.end}" data-window-end class="flex-1 h-10 px-3 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C86D4B]/30 focus:border-[#C86D4B] w-full" />
+                </div>
+                ${windows.length > 1 ? `<button type="button" data-remove-window class="self-end text-xs text-red-600 hover:text-red-700 font-medium">Remove</button>` : ''}
+              </div>
+            `;
+            row.querySelector('[data-window-day]')?.addEventListener('change', (e) => {
+              windows[index].day = e.target.value;
+              computeSchedule();
+            });
+            row.querySelector('[data-window-start]')?.addEventListener('input', (e) => {
+              windows[index].start = e.target.value;
+              computeSchedule();
+            });
+            row.querySelector('[data-window-end]')?.addEventListener('input', (e) => {
+              windows[index].end = e.target.value;
+              computeSchedule();
+            });
+            row.querySelector('[data-remove-window]')?.addEventListener('click', () => {
+              windows.splice(index, 1);
+              renderWindowsList();
+              computeSchedule();
+            });
+            windowsList.appendChild(row);
+          });
+        };
+        // Option selection
+        optionButtons.forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            pickupType = btn.getAttribute('data-pickup-option') || '';
+            refreshOptionStyles();
+            showSections();
+            computeSchedule();
+          });
+        });
+        // Add window
+        addWindowBtn?.addEventListener('click', (e) => {
+          e.preventDefault();
+          windows.push({ day: 'tuesday', start: '16:00', end: '18:00' });
+          renderWindowsList();
+          computeSchedule();
+        });
+        // Business days toggle
+        businessDays.forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const d = btn.getAttribute('data-day') || '';
+            if (!d) return;
+            if (selectedDays.includes(d)) {
+              selectedDays = selectedDays.filter((x) => x !== d);
+              btn.classList.remove('bg-[#C86D4B]','text-white','border-[#C86D4B]');
+              btn.classList.add('bg-white','border-gray-300','text-gray-700');
+            } else {
+              selectedDays = [...selectedDays, d];
+              btn.classList.add('bg-[#C86D4B]','text-white','border-[#C86D4B]');
+              btn.classList.remove('bg-white','border-gray-300','text-gray-700');
+            }
+            computeSchedule();
+          });
+        });
+        businessStartInput?.addEventListener('input', computeSchedule);
+        businessEndInput?.addEventListener('input', computeSchedule);
+
+        // Initialize defaults
+        pickupType = 'windows';
+        refreshOptionStyles();
+        showSections();
+        renderWindowsList();
+        computeSchedule();
+      }
+      
+      // Ensure schedule selection is present before submit since "required" doesn't apply to hidden inputs
+      form.addEventListener('submit', (e) => {
+        const hidden = form.querySelector('input[name="open_hours"][type="hidden"]');
+        if (!hidden) return;
+        // Validate JSON structure: at least one day with a valid slot and all selected slots have start < end
+        let valid = false;
+        let parsed = null;
+        if (hidden.value) {
+          try { parsed = JSON.parse(hidden.value); } catch { parsed = null; }
+        }
+        if (parsed && typeof parsed === 'object') {
+          const ks = Object.keys(parsed);
+          for (const d of ks) {
+            const slots = Array.isArray(parsed[d]) ? parsed[d] : [];
+            for (const s of slots) {
+              const start = s?.open ?? '';
+              const end = s?.close ?? '';
+              if (start && end && start < end) { valid = true; break; }
+            }
+            // If any invalid slot where start >= end, treat as invalid overall
+            if (slots.some((s) => (s?.open ?? '') && (s?.close ?? '') && s.open >= s.close)) { valid = false; break; }
+          }
+        }
+        if (!valid) {
+          e.preventDefault();
+          const schedRoot = form.querySelector('[data-pickup]');
+          if (schedRoot) schedRoot.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          alert('Please select a schedule type and add a valid time window (start before end).');
+        }
+      });
+      
+      // Build the review summary content
+      function updateReviewSummary() {
+        const review = form.querySelector('[data-review]');
+        if (!review) return;
+        const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        const to12h = (t) => {
+          const m = String(t ?? '').match(/^(\d{2}):(\d{2})$/);
+          if (!m) return esc(t ?? '');
+          let h = Number(m[1]);
+          const min = m[2];
+          const suffix = h >= 12 ? 'PM' : 'AM';
+          h = h % 12;
+          if (h === 0) h = 12;
+          return esc(`${h}:${min} ${suffix}`);
+        };
+        const getVal = (selector) => (form.querySelector(selector)?.value || '').toString();
+        const getChecked = (name, value) => !!(form.querySelector(`input[name="${name}"][value="${value}"]`) as HTMLInputElement | null)?.checked;
+        const businessTypeSelected = (() => {
+          const checked = form.querySelector('input[name="business_type"]:checked') as HTMLInputElement | null;
+          if (!checked) return '';
+          if (checked.value === 'Other') {
+            const other = getVal('input[name="business_type_other"]');
+            return other ? `Other — ${esc(other)}` : 'Other';
+          }
+          return esc(checked.value);
+        })();
+        const offers: string[] = [];
+        if ((form.querySelector('input[name="offer_dropoff"]') as HTMLInputElement | null)?.checked) offers.push('Accept donations');
+        if (form.querySelector('input[name="offer_pickup"]')?.checked) offers.push('Allow pickup');
+        if (form.querySelector('input[name="offer_both"]')?.checked) offers.push('Both');
+        // Open hours summary
+        const openHoursHidden = form.querySelector('input[name="open_hours"][type="hidden"]') as HTMLInputElement | null;
+        let hoursItems = '<li class="text-gray-500">Not set</li>';
+        if (openHoursHidden?.value) {
+          try {
+            const sched = JSON.parse(openHoursHidden.value || '{}');
+            const order = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+            const labels: Record<string,string> = { monday:'Monday', tuesday:'Tuesday', wednesday:'Wednesday', thursday:'Thursday', friday:'Friday', saturday:'Saturday', sunday:'Sunday' };
+            const lines = order.map((d) => {
+              const slots = Array.isArray(sched[d]) ? sched[d] : [];
+              if (!slots.length) return `<li class="flex justify-between"><span class="font-medium text-gray-700">${labels[d]}:</span> <span class="text-gray-600">Closed</span></li>`;
+              const s = slots.map((x: any) => `${to12h(x.open ?? '')} - ${to12h(x.close ?? '')}`).join(', ');
+              return `<li class="flex justify-between"><span class="font-medium text-gray-700">${labels[d]}:</span> <span class="text-gray-900">${s}</span></li>`;
+            });
+            hoursItems = lines.join('');
+          } catch {}
+        }
+        const address = `${esc(getVal('input[name="address"]'))}, ${esc(getVal('input[name="city"]'))} ${esc(getVal('input[name="zip"]'))}`.trim().replace(/^,|,$/g,'');
+        review.innerHTML = `
+          <div class="grid gap-6">
+            <dl class="grid sm:grid-cols-2 gap-x-8 gap-y-2">
+              <div class="flex gap-2">
+                <dt class="w-28 text-xs uppercase tracking-wide text-gray-500 pt-1">Business</dt>
+                <dd class="text-gray-900 font-medium">${esc(getVal('input[name="org"]')) || '—'}</dd>
+              </div>
+              <div class="flex gap-2">
+                <dt class="w-28 text-xs uppercase tracking-wide text-gray-500 pt-1">Contact</dt>
+                <dd class="text-gray-900">${esc(getVal('input[name="name"]')) || '—'}</dd>
+              </div>
+              <div class="flex gap-2">
+                <dt class="w-28 text-xs uppercase tracking-wide text-gray-500 pt-1">Email</dt>
+                <dd class="text-gray-900">${esc(getVal('input[name="email"]')) || '—'}</dd>
+              </div>
+              <div class="flex gap-2">
+                <dt class="w-28 text-xs uppercase tracking-wide text-gray-500 pt-1">Phone</dt>
+                <dd class="text-gray-900">${esc(getVal('input[name="phone"]')) || '—'}</dd>
+              </div>
+              <div class="flex gap-2 sm:col-span-2">
+                <dt class="w-28 text-xs uppercase tracking-wide text-gray-500 pt-1">Address</dt>
+                <dd class="text-gray-900">${address || '—'}</dd>
+              </div>
+              <div class="flex gap-2">
+                <dt class="w-28 text-xs uppercase tracking-wide text-gray-500 pt-1">Type</dt>
+                <dd class="text-gray-900">${businessTypeSelected || '—'}</dd>
+              </div>
+              <div class="flex gap-2">
+                <dt class="w-28 text-xs uppercase tracking-wide text-gray-500 pt-1">Participation</dt>
+                <dd class="text-gray-900">${offers.length ? esc(offers.join(', ')) : '—'}</dd>
+              </div>
+            </dl>
+            <div class="rounded-lg border border-gray-200 bg-[#FFF8F0]/40 p-3">
+              <div class="text-xs uppercase tracking-wide text-gray-500 mb-2">Open hours</div>
+              <ul class="grid sm:grid-cols-2 gap-y-1 gap-x-6 text-sm">
+                ${hoursItems}
+              </ul>
+            </div>
+          </div>
+        `;
+      }
+      
+      // Keep preview live-updated while on final step
+      form.addEventListener('input', () => {
+        const stepsEl = form.querySelector('[data-step="4"]');
+        if (stepsEl && !stepsEl.classList.contains('hidden')) {
+          updateReviewSummary();
+        }
+      });
       
       // Google Places Autocomplete for address -> autofill city and zip
       // This function is called by the Google Maps script via the "callback" param
