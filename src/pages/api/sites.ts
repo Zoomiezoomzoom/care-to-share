@@ -27,6 +27,38 @@ function inferType(r: any): Site['type'] | null {
   return null;
 }
 
+function to12h(time: string): string {
+  const m = String(time ?? '').match(/^(\d{2}):(\d{2})$/);
+  if (!m) return time;
+  let h = Number(m[1]);
+  const min = m[2];
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12;
+  if (h === 0) h = 12;
+  return `${h}:${min} ${ampm}`;
+}
+
+function formatOpenHours(value: string | null | undefined): string | undefined {
+  if (!value) return undefined;
+  try {
+    const obj = JSON.parse(value);
+    const order = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+    const labels: Record<string,string> = { monday:'Mon', tuesday:'Tue', wednesday:'Wed', thursday:'Thu', friday:'Fri', saturday:'Sat', sunday:'Sun' };
+    if (typeof obj === 'object' && obj) {
+      const parts: string[] = [];
+      for (const d of order) {
+        const slots = Array.isArray(obj[d]) ? obj[d] : [];
+        if (!slots.length) continue;
+        const ranges = slots.map((s: any) => `${to12h(s?.open ?? '')}–${to12h(s?.close ?? '')}`).join(', ');
+        parts.push(`${labels[d]} ${ranges}`);
+      }
+      if (parts.length) return parts.join(' · ');
+    }
+  } catch {}
+  // Fallback: plain string passed through
+  return value || undefined;
+}
+
 export const GET: APIRoute = async ({ url }) => {
   try {
     const city = (url.searchParams.get('city') || '').trim();
@@ -71,7 +103,7 @@ export const GET: APIRoute = async ({ url }) => {
           city: r.city,
           zip: r.zip,
           phone: r.phone ?? undefined,
-          hours: r.open_hours ?? undefined,
+          hours: formatOpenHours(r.open_hours ?? undefined),
         };
         return site;
       })

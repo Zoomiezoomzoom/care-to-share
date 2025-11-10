@@ -1,4 +1,4 @@
-# Care to Share November
+# Share to Care Mississippi
 
 Community food-sharing site for Mississippi.
 
